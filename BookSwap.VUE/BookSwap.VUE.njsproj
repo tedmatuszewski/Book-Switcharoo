@@ -36,6 +36,9 @@
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="src\config.json">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
