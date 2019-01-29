@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookSwap.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class ValuesController : ControllerBase
     {
         // GET api/values
