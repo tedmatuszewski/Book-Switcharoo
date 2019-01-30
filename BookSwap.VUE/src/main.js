@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import HomeComponent from "./components/HomeComponent.vue";
+import BookComponent from "./components/BookComponent.vue";
 
 Vue.config.productionTip = true;
 
@@ -23,7 +24,9 @@ let router = new Router({
     base: __dirname,
     linkExactActiveClass: "active",
     routes: [
-        { path: '/', name: "home", component: HomeComponent }
+        { path: '/', name: "home", component: HomeComponent },
+        { path: '/books', name: "books", component: BookComponent }
+
     ]
 });
 
