@@ -1,17 +1,26 @@
 <template>
-    <div id="app">
-        <Home msg="Hello world!" />
+    <div>
+        <b-navbar toggleable="sm" type="dark" variant="info">
+            <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+            <b-navbar-brand href="#">Book Swap</b-navbar-brand>
+            <b-collapse is-nav id="nav_collapse">
+                <b-navbar-nav>
+                    <router-link class="nav-item" tag="li" to="/"><a class="nav-link" href="#">Home</a></router-link>
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
+
+        <div class="container-fluid">
+            <router-view />
+
+            <footer class="footer">Book Swap</footer>
+        </div>
     </div>
 </template>
 
 <script>
-    import Home from './components/Home.vue';
-
     export default {
-        name: 'app',
-        components: {
-            Home
-        }
+        name: 'app'
     };
 </script>
 
