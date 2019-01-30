@@ -62,4 +62,7 @@
   <ItemGroup>
     <Build Include="Tables\Book.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BookSwap.DB.publish.xml" />
+  </ItemGroup>
 </Project>

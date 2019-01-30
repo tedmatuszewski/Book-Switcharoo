@@ -10,7 +10,8 @@ namespace BookSwap.API.Models
         {
         }
 
-        public BookswapContext(DbContextOptions<BookswapContext> options) : base(options)
+        public BookswapContext(DbContextOptions<BookswapContext> options)
+            : base(options)
         {
         }
 
@@ -29,7 +30,29 @@ namespace BookSwap.API.Models
 
             modelBuilder.Entity<Book>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Condition)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Isbn)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.User)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
