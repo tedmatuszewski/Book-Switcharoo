@@ -26,8 +26,8 @@ let router = new Router({
     base: __dirname,
     linkExactActiveClass: "active",
     routes: [
-        { path: '/', name: "home", component: HomeComponent, props: true },
-        { path: '/search', name: "search", component: SearchComponent, props: { term: "zzzz" } }
+        { path: '/', name: "home", component: HomeComponent },
+        { path: '/search', name: "search", component: SearchComponent }
 
     ]
 });

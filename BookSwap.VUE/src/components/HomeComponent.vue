@@ -40,7 +40,7 @@
         },
         methods: {
             search() {
-                this.$router.push({ name: 'search', props: { term: self.term } });
+                this.$router.push({ name: 'search', params: { term: this.term } });
             }
         },
         mounted() {
