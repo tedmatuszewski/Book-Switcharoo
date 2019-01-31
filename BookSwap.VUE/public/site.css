@@ -1,0 +1,28 @@
+﻿body {
+    background-color: #EEEEEE!important;
+}
+
+.card.book {
+    width: 20rem;
+    margin-top: 20px;
+}
+
+.poster-container .poster-search {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.poster-container .poster-search-container {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+}
+
+.poster-container {
+    position:relative;
+}
+
+    .poster-container .btn-poster-search {
+        width:170px;
+    }
