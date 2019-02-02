@@ -23,7 +23,7 @@ namespace BookSwap.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] SearchRequestModel model)
         {
-            var books = await _context.Book.Where(b => b.Title.ToLower().Trim().Contains(model.query.ToLower().Trim())).ToListAsync();
+            var books = await _context.Book.ToAsyncEnumerable().Where(b => b.IsMatch(model.query)).ToList();
 
             return Ok(books);
         }

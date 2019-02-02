@@ -30,9 +30,22 @@ namespace BookSwap.API.Models
 
             modelBuilder.Entity<Book>(entity =>
             {
+                entity.Property(e => e.Class)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("''");
+
                 entity.Property(e => e.Condition)
                     .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DateAdded).HasDefaultValueSql("getdate()");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Image)
@@ -48,6 +61,12 @@ namespace BookSwap.API.Models
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.University)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("''");
 
                 entity.Property(e => e.User)
                     .IsRequired()

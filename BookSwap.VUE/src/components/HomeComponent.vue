@@ -17,10 +17,10 @@
         <div class="container-fluid">
             <div v-masonry transition-duration="0.5s" item-selector=".card" gutter="20" fit-width="false" class="mx-auto">
                 <div v-masonry-tile class="card book" v-for="book in books" :key="book.Id" style="width: 20rem;">
-                    <img src="http://via.placeholder.com/350x250" class="card-img-top" alt="...">
+                    <img :src="book.Image" class="card-img-top" :alt="book.Title">
                     <div class="card-body">
                         <h5 class="card-title">{{book.Title}}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">{{book.Description}}</p>
                         <a href="#" class="btn btn-primary">View</a>
                     </div>
                 </div>

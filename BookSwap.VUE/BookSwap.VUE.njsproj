@@ -37,6 +37,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\App.vue" />
+    <Content Include="src\components\PostComponent.vue" />
     <Content Include="src\components\SearchComponent.vue" />
     <Content Include="src\components\HomeComponent.vue" />
     <Content Include="package.json" />

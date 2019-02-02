@@ -6,5 +6,9 @@
     [Isbn] VARCHAR(255) NOT NULL, 
     [User] VARCHAR(255) NOT NULL, 
     [Condition] VARCHAR(50) NOT NULL, 
-    [IsDeleted] BIT NOT NULL DEFAULT 0
+    [Description] VARCHAR(500) NOT NULL ,
+    [University] VARCHAR(255) NOT NULL DEFAULT '', 
+    [Class] VARCHAR(255) NOT NULL DEFAULT '', 
+    [DateAdded] DATETIME2 NOT NULL DEFAULT GETDATE(), 
+    [IsDeleted] BIT NOT NULL DEFAULT 0, 
 )

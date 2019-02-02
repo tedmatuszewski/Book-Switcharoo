@@ -12,6 +12,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import HomeComponent from "./components/HomeComponent.vue";
 import SearchComponent from "./components/SearchComponent.vue";
+import PostComponent from "./components/PostComponent.vue";
 
 Vue.config.productionTip = true;
 
@@ -27,7 +28,8 @@ let router = new Router({
     linkExactActiveClass: "active",
     routes: [
         { path: '/', name: "home", component: HomeComponent },
-        { path: '/search', name: "search", component: SearchComponent }
+        { path: '/search', name: "search", component: SearchComponent },
+        { path: '/post', name: "post", component: PostComponent }
 
     ]
 });
