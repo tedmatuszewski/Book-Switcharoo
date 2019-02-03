@@ -32,7 +32,7 @@
             }
         },
         mounted() {
-            this.email = firebase.auth().currentUser.email;
+            
         }
     };
 </script>

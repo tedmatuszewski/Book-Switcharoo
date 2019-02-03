@@ -30,7 +30,7 @@
         methods: {
             login: function () {
                 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
-                    return firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((user) => {
+                    return firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
                         this.$router.push({ path: this.$route.query.redirectTo });
                     },
                     (error) => {
