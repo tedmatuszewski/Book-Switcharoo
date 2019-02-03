@@ -31,7 +31,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="public\book-stack.jpg" />
-    <Content Include="public\favicon.ico" />
+    <Content Include="public\black\apple-icon-57x57.png" />
+    <Content Include="public\black\apple-icon-60x60.png" />
+    <Content Include="public\black\apple-icon-72x72.png" />
+    <Content Include="public\black\apple-icon-76x76.png" />
+    <Content Include="public\black\apple-icon-114x114.png" />
+    <Content Include="public\black\apple-icon-120x120.png" />
+    <Content Include="public\black\apple-icon-144x144.png" />
+    <Content Include="public\black\apple-icon-152x152.png" />
+    <Content Include="public\black\apple-icon-180x180.png" />
+    <Content Include="public\black\android-icon-192x192.png" />
+    <Content Include="public\black\favicon-32x32.png" />
+    <Content Include="public\black\favicon-96x96.png" />
+    <Content Include="public\black\favicon-16x16.png" />
+    <Content Include="public\black\manifest.json" />
     <Content Include="public\index.html" />
     <Content Include="public\site.css">
       <SubType>Code</SubType>
