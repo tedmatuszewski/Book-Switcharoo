@@ -22,12 +22,12 @@ Vue.config.productionTip = true;
 axios.defaults.baseURL = config.api_url;
 
 var firebaseConfig = {
-    apiKey: "AIzaSyAAOqiqMrw3utPi2e7HemDN-YXI8tOajG0",
-    authDomain: "bostonplatform2018.firebaseapp.com",
-    databaseURL: "https://bostonplatform2018.firebaseio.com",
-    projectId: "bostonplatform2018",
-    storageBucket: "bostonplatform2018.appspot.com",
-    messagingSenderId: "538071414774"
+    apiKey: "AIzaSyC-vQIqz2ESYm0cuF9UswndGcXokxC2PGE",
+    authDomain: "bookswap633.firebaseapp.com",
+    databaseURL: "https://bookswap633.firebaseio.com",
+    projectId: "bookswap633",
+    storageBucket: "",
+    messagingSenderId: "95979622512"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -53,7 +53,7 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
     const currentUser = firebase.auth().currentUser;
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    
+
     if (requiresAuth && !currentUser) {
         //next('login');
         router.push({ path: '/login', query: { redirectTo: to.path } });
