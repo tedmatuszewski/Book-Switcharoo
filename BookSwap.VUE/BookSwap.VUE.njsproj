@@ -37,9 +37,11 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\App.vue" />
-    <Content Include="src\components\PostComponent.vue" />
-    <Content Include="src\components\SearchComponent.vue" />
-    <Content Include="src\components\HomeComponent.vue" />
+    <Content Include="src\components\Register.vue" />
+    <Content Include="src\components\Login.vue" />
+    <Content Include="src\components\Post.vue" />
+    <Content Include="src\components\Search.vue" />
+    <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\config.json">

@@ -85,6 +85,8 @@
 </template>
 
 <script>
+    import firebase from 'firebase';
+
     export default {
         data() {
             return {
@@ -95,9 +97,7 @@
         methods: {
             bookSubmit() {
                 var self = this;
-
-                self.book.User = "ted";
-
+                
                 self.$http.post("/v1/books", self.book).then(() => {
                     self.book = {};
                     this.$refs.filePicker.value = "";
@@ -121,7 +121,7 @@
             },
         },
         mounted() {
-            
+            this.book.User = firebase.auth().currentUser.email;
         }
     };
 </script>

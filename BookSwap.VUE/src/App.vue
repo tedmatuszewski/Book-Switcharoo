@@ -9,13 +9,15 @@
                     <router-link class="nav-item" tag="li" to="/post"><a class="nav-link" href="#">Post</a></router-link>
                 </b-navbar-nav>
             </b-collapse>
+
+            <span>{{email}}</span>
         </b-navbar>
 
         <router-view />
 
-        <footer>
-            <div class="text-center">
-                2019 Book Swap
+        <footer class="footer mt-auto py-3">
+            <div class="container">
+                <span class="text-muted">Book Swap 2019</span>
             </div>
         </footer>
     </div>
@@ -23,7 +25,15 @@
 
 <script>
     export default {
-        name: 'app'
+        name: 'app',
+        data() {
+            return {
+                email: ""
+            }
+        },
+        mounted() {
+            this.email = firebase.auth().currentUser.email;
+        }
     };
 </script>
 
