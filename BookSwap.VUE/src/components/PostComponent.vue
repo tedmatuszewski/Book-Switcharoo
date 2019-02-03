@@ -98,7 +98,7 @@
 
                 self.book.User = "ted";
 
-                self.$http.post("/v1/books", self.book).then((response) => {
+                self.$http.post("/v1/books", self.book).then(() => {
                     self.book = {};
                     this.$refs.filePicker.value = "";
                 });
