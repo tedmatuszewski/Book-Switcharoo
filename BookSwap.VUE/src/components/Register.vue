@@ -30,8 +30,7 @@
             register: function () {
                 var self = this;
 
-                firebase.auth().createUserWithEmailAndPassword(self.email, self.password).then(function (user) {
-                    console.log(user);
+                firebase.auth().createUserWithEmailAndPassword(self.email, self.password).then(function () {
                 },
                 function (error) {
                     self.error = error.message;
