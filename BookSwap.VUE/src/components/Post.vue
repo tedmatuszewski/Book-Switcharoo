@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Description of what you are looking for</label>
+                                <label class="form-label">Description your book</label>
                                 <textarea v-model="book.Description" class="form-control"></textarea>
                             </div>
 
