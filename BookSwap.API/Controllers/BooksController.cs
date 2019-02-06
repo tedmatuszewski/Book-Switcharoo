@@ -1,6 +1,7 @@
 ﻿using BookSwap.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,11 +19,18 @@ namespace BookSwap.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBook()
+        public IActionResult GetBook(string owner = null)
         {
-            return Ok(_context.Book);
-        }
+            var books = _context.Book.Where(b => b.IsDeleted == false);
 
+            if(owner != null)
+            {
+                books = books.Where(b => b.User.ToLower().Trim() == owner.ToLower().Trim());
+            }
+
+            return Ok(books);
+        }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBook([FromRoute] int id)
         {
@@ -31,7 +39,7 @@ namespace BookSwap.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var book = await _context.Book.FindAsync(id);
+            var book = await _context.Book.Where(b => b.IsDeleted == false).SingleOrDefaultAsync(b => b.Id == id);
 
             if (book == null)
             {
@@ -84,20 +92,17 @@ namespace BookSwap.API.Controllers
             }
 
             var book = await _context.Book.FindAsync(id);
+
             if (book == null)
             {
                 return NotFound();
             }
 
-            _context.Book.Remove(book);
+            book.IsDeleted = true;
+
             await _context.SaveChangesAsync();
 
             return Ok(book);
-        }
-
-        private bool BookExists(int id)
-        {
-            return _context.Book.Any(e => e.Id == id);
         }
     }
 }

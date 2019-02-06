@@ -90,6 +90,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\App.vue" />
+    <Content Include="src\components\Profile.vue" />
     <Content Include="src\components\Register.vue" />
     <Content Include="src\components\Login.vue" />
     <Content Include="src\components\Post.vue" />

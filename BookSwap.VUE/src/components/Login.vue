@@ -20,6 +20,7 @@
 
     export default {
         props: ["redirectTo"],
+        store: ['user'],
         data() {
             return {
                 password: "",
@@ -31,7 +32,13 @@
             login: function () {
                 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
                     return firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
-                        this.$router.push({ path: this.$route.query.redirectTo });
+                        this.$store.user = this.email;
+
+                        if (this.$route.query.redirectTo != null) {
+                            this.$router.push({ path: this.$route.query.redirectTo });
+                        } else {
+                            this.$router.push({ path: "/profile" });
+                        }
                     },
                     (error) => {
                         this.error = error.message;

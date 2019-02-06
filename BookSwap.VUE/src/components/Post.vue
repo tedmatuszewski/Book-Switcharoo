@@ -70,8 +70,10 @@
                                 <textarea v-model="book.Description" class="form-control"></textarea>
                             </div>
 
+                            <input type="hidden" v-model="book.Id" />
                             <input type="hidden" v-model="book.Image" />
                             <input type="hidden" v-model="book.User" />
+                            <input type="hidden" v-model="book.IsDeleted" />
 
                             <div class="form-group">
                                 <button class="btn btn-primary float-right" type="submit">Submit</button>
@@ -88,6 +90,7 @@
     import firebase from 'firebase';
 
     export default {
+        props: ['id'],
         data() {
             return {
                 file: null,
@@ -97,11 +100,17 @@
         methods: {
             bookSubmit() {
                 var self = this;
-                
-                self.$http.post("/v1/books", self.book).then(() => {
-                    self.book = {};
-                    this.$refs.filePicker.value = "";
-                });
+
+                if (self.$route == null || self.$route.params == null || self.$route.params.id == null) {
+                    self.$http.post("/v1/books", self.book).then(() => {
+                        self.book = {};
+                        self.$refs.filePicker.value = "";
+                    });
+                } else {
+                    self.$http.put("/v1/books/" + self.$route.params.id, self.book).then(() => {
+                        self.$router.push({ path: "/profile" });
+                    });
+                }
             },
             encodeImage() {
                 let formData = new FormData();
@@ -121,7 +130,17 @@
             },
         },
         mounted() {
-            this.book.User = firebase.auth().currentUser.email;
+            var self = this;
+
+            self.book.User = firebase.auth().currentUser.email;
+            self.book.IsDeleted = false;
+            self.book.Type = "Library";
+
+            if (self.$route != null && self.$route.params != null && self.$route.params.id != null) {
+                self.$http.get("/v1/books/" + self.$route.params.id).then((response) => {
+                    self.book = response.data;
+                });
+            }
         }
     };
 </script>

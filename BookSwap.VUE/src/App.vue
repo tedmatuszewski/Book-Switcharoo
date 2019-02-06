@@ -8,9 +8,17 @@
                     <router-link class="nav-item" tag="li" to="/"><a class="nav-link" href="#">Home</a></router-link>
                     <router-link class="nav-item" tag="li" to="/post"><a class="nav-link" href="#">Post</a></router-link>
                 </b-navbar-nav>
+                
+                <b-navbar-nav class="ml-auto">
+                    <b-nav-item-dropdown right>
+                        <template slot="button-content">
+                            {{$store.user}}
+                        </template>
+                        <b-dropdown-item to="/profile">Profile</b-dropdown-item>
+                        <b-dropdown-item href="#">Signout</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                </b-navbar-nav>
             </b-collapse>
-
-            <span>{{email}}</span>
         </b-navbar>
 
         <router-view />
@@ -26,13 +34,11 @@
 <script>
     export default {
         name: 'app',
-        data() {
-            return {
-                email: ""
-            }
-        },
+        store: ['user'],
         mounted() {
-            
+            //const currentUser = firebase.auth().currentUser;
+
+            //this.$store.user = currentUser;
         }
     };
 </script>

@@ -6,6 +6,7 @@ import Router from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 import firebase from 'firebase';
 import { VueMasonryPlugin } from 'vue-masonry';
+import VueStash from 'vue-stash';
 import config from "./config.json";
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -16,6 +17,7 @@ import SearchComponent from "./components/Search.vue";
 import PostComponent from "./components/Post.vue";
 import LoginComponent from "./components/Login.vue";
 import RegisterComponent from "./components/Register.vue";
+import ProfileComponent from "./components/Profile.vue";
 
 Vue.config.productionTip = true;
 
@@ -32,7 +34,8 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-Vue.use(VueMasonryPlugin)
+Vue.use(VueStash);
+Vue.use(VueMasonryPlugin);
 Vue.use(VueAxios, axios);
 Vue.use(Router);
 Vue.use(BootstrapVue);
@@ -43,31 +46,38 @@ let router = new Router({
     routes: [
         { path: '/', name: "home", component: HomeComponent },
         { path: '/search', name: "search", component: SearchComponent },
-        { path: '/post', name: "post", component: PostComponent, meta: { requiresAuth: true } },
+        { path: '/post/:id', name: "editpost", component: PostComponent, meta: { requiresAuth: true } },
+        { path: '/post', name: "createpost", component: PostComponent, meta: { requiresAuth: true } },
         { path: '/login', name: "login", component: LoginComponent },
-        { path: '/register', name: 'register', component: RegisterComponent }
-
+        { path: '/register', name: 'register', component: RegisterComponent },
+        { path: '/profile', name: 'profile', component: ProfileComponent, meta: { requiresAuth: true } }
     ]
 });
 
 router.beforeEach((to, from, next) => {
     const currentUser = firebase.auth().currentUser;
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
+    
     if (requiresAuth && !currentUser) {
-        //next('login');
         router.push({ path: '/login', query: { redirectTo: to.path } });
     } else {
         next();
     }
-    //else if (!requiresAuth && currentUser) {
-    //    next("home");
-    //} else {
-    //    next();
-    //}
 });
 
 new Vue({
     router: router,
+    data: {
+        store: { }
+    },
+    created() {
+        var self = this;
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                self.$store.user = user.email;
+            }
+        });
+    },
     render: h => h(App)
 }).$mount('#app');

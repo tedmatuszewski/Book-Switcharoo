@@ -33,8 +33,7 @@ namespace BookSwap.API.Models
                 entity.Property(e => e.Class)
                     .IsRequired()
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("''");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Condition)
                     .IsRequired()
@@ -65,8 +64,7 @@ namespace BookSwap.API.Models
                 entity.Property(e => e.University)
                     .IsRequired()
                     .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("''");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.User)
                     .IsRequired()
