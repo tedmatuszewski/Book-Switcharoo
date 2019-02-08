@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="public\book-stack.jpg" />
+    <Content Include="public\books_edited.jpg" />
     <Content Include="public\favicon\black\android-icon-144x144.png" />
     <Content Include="public\favicon\black\android-icon-192x192.png" />
     <Content Include="public\favicon\black\android-icon-36x36.png" />

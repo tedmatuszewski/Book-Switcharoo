@@ -5,6 +5,30 @@ namespace BookSwap.API.Models
 {
     public partial class Book
     {
+        public string UniversityDisplay
+        {
+            get
+            {
+                return this.University + "/" + this.Class;
+            }
+        }
+
+        public string DaysAgo
+        {
+            get
+            {
+                return $"posted {(DateTime.Now - this.DateAdded).Days} days ago";
+            }
+        }
+
+        public string DateAddedDisplay
+        {
+            get
+            {
+                return $"{this.DateAdded.ToShortDateString()} {this.DateAdded.ToShortTimeString()}";
+            }
+        }
+
         public bool IsMatch(string query)
         {
             query = query?.ToLower()?.Trim();

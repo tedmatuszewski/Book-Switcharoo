@@ -3,6 +3,28 @@
     padding-bottom:80px;
 }
 
+h1, h2, h3, h4, h5, h6, body {
+    font-family: 'Varela Round', sans-serif!important;
+    font-weight: normal;
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -34,11 +56,16 @@
     width: 20rem;
     margin-top: 20px;
     background-color: #cecece;
+    cursor:pointer;
 }
 
+    .card.book .card-footer {
+        background-color: #fafafa;
+    }
+
     .card.book .card-img-top {
-        max-height: 250px;
-        width: fit-content;
+        max-height: 200px;
+        width: auto;
         max-width: 100%;
         margin: 0 auto;
         border-radius: 0;
@@ -48,20 +75,88 @@
         background-color: white;
     }
 
+.card {
+    border:0 !important;
+}
+
+button.btn-primary {
+    color: #fff;
+    background-color: #1752b8;
+    border: 1px solid #1752b8;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #134295;
+    border-color: #134295;
+}
+
+.poster-container {
+    padding: 100px 0;
+    overflow: hidden;
+    background-image: url(books_edited.jpg);
+    background-repeat: no-repeat;
+    background-size: auto;
+    position: relative;
+    z-index: 1;
+}
+
+    .poster-container .btn-primary {
+        border-radius: 0 30px 30px 0;
+        text-transform: uppercase;
+        line-height: 47px;
+        font-size: 14px;
+        width: 114px;
+        margin-right: -1px;
+        padding: 0;
+    }
+
+.poster-overlay {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44, 55, 62, 0.8);
+    z-index: -1;
+}
+
 .poster-container .poster-search {
     width: 500px;
     margin: 0 auto;
 }
 
-.poster-container .poster-search-container {
-    position: absolute;
-    bottom: 50px;
-    left: 0;
-    width: 100%;
-}
+    .poster-container .poster-search-container {
+        bottom: 100px;
+        left: 0;
+        width: 100%;
+        z-index: 7;
+        color: white;
+        text-align: center;
 
-.poster-container {
-    position:relative;
+    }
+
+    .poster-search-container input {
+        border-top-left-radius: 25px !important;
+        border-bottom-left-radius: 25px !important;
+        padding-left: 50px;
+        font-size: 1.05rem;
+    }
+
+    .poster-search-container button {
+        border-top-right-radius: 25px !important;
+        border-bottom-right-radius: 25px !important;
+    }
+
+.poster-search-container i {
+    color: black;
+    top: 17px;
+    left: 20px;
+    display: block;
+    position: absolute;
+    z-index: 12;
+    color: #1752b8;
 }
 
     .poster-container .btn-poster-search {
