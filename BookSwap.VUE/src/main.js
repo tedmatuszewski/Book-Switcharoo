@@ -58,11 +58,25 @@ router.beforeEach((to, from, next) => {
     const currentUser = firebase.auth().currentUser;
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     
-    if (requiresAuth && !currentUser) {
-        router.push({ path: '/login', query: { redirectTo: to.path } });
-    } else {
-        next();
+    // if (requiresAuth && !currentUser) {
+    //     router.push({ path: '/login', query: { redirectTo: to.path } });
+    // } else {
+    //     next();
+    // }
+
+    if (requiresAuth){
+        firebase.auth().onAuthStateChanged((currentUser) => {
+            console.log("On Auth State Changed")
+            if (!currentUser) {
+                console.log("No user, redirect to login");
+                router.push({ path: '/login', query: { redirectTo: to.path } });
+            }
+            else {
+                next();
+            }
+        });
     }
+    
 });
 
 new Vue({
