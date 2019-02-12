@@ -2,7 +2,10 @@
     <div>
         <b-navbar toggleable="sm" type="dark" variant="info">
             <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-            <b-navbar-brand href="/">Book Swap</b-navbar-brand>
+            <b-navbar-brand href="/">
+                <img src="../public/logo_white.png" style="max-height:40px" />
+                Book Swap
+            </b-navbar-brand>
             <b-collapse is-nav id="nav_collapse">
                 <b-navbar-nav>
                     <router-link class="nav-item" tag="li" to="/"><a class="nav-link" href="#">Home</a></router-link>
