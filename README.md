@@ -22,7 +22,7 @@ $ npm install
 
 ## Running locally
 ```
-(from [project]/BookSwap.VUE])
+(from [project]/BookSwap.VUE)
 $ npm run build
 $ npm run serve
 ```
@@ -55,3 +55,10 @@ Lead Project Manager, Business Analyst, Tester
 Project Manager, Tester
 * [**Sreenath Middhi**](https://github.com/smiddhi) -
 Lead Business Analyst, Tester
+
+
+<!--
+Notes
+cd desktop/github/bookswap/website/BookSwap.VUE
+https://tedmatuszewski.visualstudio.com/Development/_build
+-->
