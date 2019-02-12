@@ -19,13 +19,13 @@ namespace BookSwap.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBook(string owner = null)
+        public IActionResult GetBook(string user = null)
         {
             var books = _context.Book.Where(b => b.IsDeleted == false).OrderByDescending(b => b.DateAdded).AsQueryable();
 
-            if(owner != null)
+            if(user != null)
             {
-                books = books.Where(b => b.User.ToLower().Trim() == owner.ToLower().Trim());
+                books = books.Where(b => b.User.ToLower().Trim() == user.ToLower().Trim());
             }
 
             return Ok(books);

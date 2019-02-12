@@ -16,6 +16,7 @@ namespace BookSwap.API.Models
         }
 
         public virtual DbSet<Book> Book { get; set; }
+        public virtual DbSet<Message> Message { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -64,6 +65,26 @@ namespace BookSwap.API.Models
                 entity.Property(e => e.University)
                     .IsRequired()
                     .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.User)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Message>(entity =>
+            {
+                entity.Property(e => e.DateAdded).HasDefaultValueSql("getdate()");
+
+                entity.Property(e => e.From)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasMaxLength(511)
                     .IsUnicode(false);
 
                 entity.Property(e => e.User)

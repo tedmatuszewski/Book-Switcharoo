@@ -182,7 +182,7 @@
                                 <div class="type_msg">
                                     <div class="input_msg_write">
                                         <input type="text" class="write_msg" placeholder="Type a message" />
-                                        <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                        <button v-on:click="send" class="msg_send_btn" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,8 @@
         data() {
             return {
                 Books: [],
-                ActiveTab: "library"
+                ActiveTab: "library",
+                Messages: []
             }
         },
         methods: {
@@ -212,14 +213,21 @@
             },
             tabChange(tab) {
                 this.ActiveTab = tab;
+            },
+            send() {
+
             }
         },
         mounted() {
             var self = this;
 
-            self.$http.get("/v1/books?owner=" + self.$store.user).then((response) => {
+            self.$http.get("/v1/books?user=" + self.$store.user).then((response) => {
                 self.Books = response.data;
             });
+
+            //self.$http.get("/v1/messages/list?user=" + self.$store.user).then((response) => {
+            //    self.Messages = response.data;
+            //});
         }
     };
 </script>
