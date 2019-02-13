@@ -31,11 +31,34 @@ namespace BookSwap.API.Controllers
 
         // GET: api/Messages
         [HttpGet("list")]
-        public IEnumerable<Message> GetList(string user)
+        public IEnumerable<MessageList> GetList(string user)
         {
-            var messages = _context.Message.FromSql("SELECT * FROM dbo.MessageList");
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM [dbo].[MessageList]";
+                _context.Database.OpenConnection();
 
-            return messages;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var result = new MessageList
+                            {
+                                DateAdded = reader.GetDateTime(0),
+                                User = reader.GetString(1),
+                                Text = reader.GetString(2),
+                                From = reader.GetString(3),
+                                Title = reader.GetString(4),
+                                BookId = reader.GetInt32(5)
+                            };
+
+                            yield return result;
+                        }
+                    }
+                }
+            }
         }
 
         // GET: api/Messages/5
