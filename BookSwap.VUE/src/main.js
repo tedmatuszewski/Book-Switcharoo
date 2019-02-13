@@ -23,16 +23,7 @@ Vue.config.productionTip = true;
 
 axios.defaults.baseURL = config.api_url;
 
-var firebaseConfig = {
-    apiKey: "AIzaSyC-vQIqz2ESYm0cuF9UswndGcXokxC2PGE",
-    authDomain: "bookswap633.firebaseapp.com",
-    databaseURL: "https://bookswap633.firebaseio.com",
-    projectId: "bookswap633",
-    storageBucket: "",
-    messagingSenderId: "95979622512"
-};
-
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config.firebase);
 
 Vue.use(VueMasonryPlugin);
 Vue.use(VueAxios, axios);
@@ -66,10 +57,5 @@ router.beforeEach((to, from, next) => {
 
 new Vue({
     router: router,
-    data: {
-        store: { }
-    },
-    created() {
-    },
     render: h => h(App)
 }).$mount('#app');

@@ -1,3 +1,11 @@
 {
-  "api_url": "http://localhost:50763"
+  "api_url": "http://localhost:50763",
+  "firebase":{
+    "apiKey": "AIzaSyC-vQIqz2ESYm0cuF9UswndGcXokxC2PGE",
+    "authDomain": "bookswap633.firebaseapp.com",
+    "databaseURL": "https://bookswap633.firebaseio.com",
+    "projectId": "bookswap633",
+    "storageBucket": "",
+    "messagingSenderId": "95979622512"
+  }
 }
