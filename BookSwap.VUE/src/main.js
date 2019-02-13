@@ -6,8 +6,8 @@ import Router from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 import firebase from 'firebase';
 import { VueMasonryPlugin } from 'vue-masonry';
-import VueStash from 'vue-stash';
 import config from "./config.json";
+import session from "./session";
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -34,7 +34,6 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-Vue.use(VueStash);
 Vue.use(VueMasonryPlugin);
 Vue.use(VueAxios, axios);
 Vue.use(Router);
@@ -55,10 +54,10 @@ let router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    const currentUser = firebase.auth().currentUser;
+    const loggedIn = session.isset();
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     
-    if (requiresAuth && !currentUser) {
+    if (requiresAuth && !loggedIn) {
         router.push({ path: '/login', query: { redirectTo: to.path } });
     } else {
         next();
@@ -71,13 +70,24 @@ new Vue({
         store: { }
     },
     created() {
-        var self = this;
+        //var self = this;
+        //var session = JSON.parse(localStorage.getItem("user"));
 
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                self.$store.user = user.email;
-            }
-        });
+        //firebase.auth().onAuthStateChanged((response) => {
+        //    if (response) {
+        //        var user = {
+        //            displayName: response.displayName,
+        //            email: response.email,
+        //            emailVerified: response.emailVerified,
+        //            phoneNumber: response.phoneNumber,
+        //            photoURL: response.photoURL
+        //        };
+
+        //        localStorage.setItem("user", JSON.stringify(user));
+        //    } else {
+        //        localStorage.removeItem("user");
+        //    }
+        //});
     },
     render: h => h(App)
 }).$mount('#app');

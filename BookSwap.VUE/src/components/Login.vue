@@ -17,10 +17,10 @@
 
 <script>
     import firebase from 'firebase';
+    import session from '../session';
 
     export default {
         props: ["redirectTo"],
-        store: ['user'],
         data() {
             return {
                 password: "",
@@ -30,19 +30,19 @@
         },
         methods: {
             login: function () {
-                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
-                    return firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
-                        this.$store.user = this.email;
+                var self = this;
 
-                        if (this.$route.query.redirectTo != null) {
-                            this.$router.push({ path: this.$route.query.redirectTo });
-                        } else {
-                            this.$router.push({ path: "/profile" });
-                        }
-                    },
-                    (error) => {
-                        this.error = error.message;
-                    });
+                return firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((response) => {
+                    session.set(response);
+
+                    if (this.$route.query.redirectTo != null) {
+                        this.$router.push({ path: this.$route.query.redirectTo });
+                    } else {
+                        this.$router.push({ path: "/profile" });
+                    }
+                },
+                (error) => {
+                    this.error = error.message;
                 });
             }
         },

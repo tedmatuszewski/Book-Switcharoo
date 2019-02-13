@@ -195,6 +195,8 @@
 </template>
 
 <script>
+    import session from '../session';
+
     export default {
         data() {
             return {
@@ -220,8 +222,9 @@
         },
         mounted() {
             var self = this;
+            var user = session.get();
 
-            self.$http.get("/v1/books?user=" + self.$store.user).then((response) => {
+            self.$http.get("/v1/books?user=" + user.email).then((response) => {
                 self.Books = response.data;
             });
 

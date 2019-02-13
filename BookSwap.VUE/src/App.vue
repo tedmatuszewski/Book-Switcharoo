@@ -8,37 +8,68 @@
                     <router-link class="nav-item" tag="li" to="/"><a class="nav-link" href="#">Home</a></router-link>
                     <router-link class="nav-item" tag="li" to="/post"><a class="nav-link" href="#">Post</a></router-link>
                 </b-navbar-nav>
-                
-                <b-navbar-nav class="ml-auto">
+
+                <b-navbar-nav class="ml-auto" v-if="isLoggedIn()">
                     <b-nav-item-dropdown right>
                         <template slot="button-content">
-                            {{$store.user}}
+                            {{getUserDisplay()}}
                         </template>
                         <b-dropdown-item to="/profile">Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Signout</b-dropdown-item>
+                        <b-dropdown-item v-on:click.prevent="logout" href="#">Signout</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
-            </b-collapse>
+                <b-navbar-nav class="ml-auto" v-else>
+                    <router-link class="nav-item" tag="li" to="/login"><a class="nav-link" href="#">Login</a></router-link>
+                </b-navbar-nav>
+                </b-collapse>
         </b-navbar>
 
-        <router-view />
+<router-view />
 
-        <footer class="footer mt-auto py-3">
-            <div class="container">
-                <span class="text-muted">Book Swap 2019</span>
-            </div>
-        </footer>
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">Book Swap 2019</span>
+    </div>
+</footer>
     </div>
 </template>
 
 <script>
+    import firebase from 'firebase';
+    import session from './session';
+
     export default {
         name: 'app',
-        store: ['user'],
-        mounted() {
-            //const currentUser = firebase.auth().currentUser;
+        methods: {
+            logout() {
+                var self = this;
 
-            //this.$store.user = currentUser;
+                firebase.auth().signOut()
+                    .then(function () {
+                        session.unset();
+                        self.$router.push({ path: "/" });
+                    })
+                    .catch(function () {
+                        // An error happened
+                    });
+            },
+            isLoggedIn() {
+                return session.isset();
+            },
+            getUserDisplay() {
+                if (session.isset()) {
+                    var user = session.get();
+
+                    return user.email;
+                } else {
+                    return "";
+                }
+            }
+        },
+        mounted() {
+            //if (this.$store.user != null && this.$store.user.email) {
+            //    this.userDisplay = this.$store.user.email;
+            //}
         }
     };
 </script>

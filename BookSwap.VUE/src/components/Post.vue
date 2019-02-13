@@ -132,7 +132,7 @@
         mounted() {
             var self = this;
 
-            self.book.User = firebase.auth().currentUser.email;
+            self.book.User = "";
             self.book.IsDeleted = false;
             self.book.Type = "Library";
 
