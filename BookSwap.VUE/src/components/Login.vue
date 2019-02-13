@@ -30,8 +30,6 @@
         },
         methods: {
             login: function () {
-                var self = this;
-
                 return firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((response) => {
                     session.set(response);
 

@@ -70,24 +70,6 @@ new Vue({
         store: { }
     },
     created() {
-        //var self = this;
-        //var session = JSON.parse(localStorage.getItem("user"));
-
-        //firebase.auth().onAuthStateChanged((response) => {
-        //    if (response) {
-        //        var user = {
-        //            displayName: response.displayName,
-        //            email: response.email,
-        //            emailVerified: response.emailVerified,
-        //            phoneNumber: response.phoneNumber,
-        //            photoURL: response.photoURL
-        //        };
-
-        //        localStorage.setItem("user", JSON.stringify(user));
-        //    } else {
-        //        localStorage.removeItem("user");
-        //    }
-        //});
     },
     render: h => h(App)
 }).$mount('#app');
