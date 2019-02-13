@@ -17,6 +17,7 @@ namespace BookSwap.API.Models
 
         public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<Message> Message { get; set; }
+        public virtual DbSet<Thread> Thread { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -77,20 +78,39 @@ namespace BookSwap.API.Models
             {
                 entity.Property(e => e.DateAdded).HasDefaultValueSql("getdate()");
 
+                entity.Property(e => e.Message1).HasColumnName("Message");
+
+                entity.Property(e => e.SentBy)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Thread)
+                    .WithMany(p => p.Message)
+                    .HasForeignKey(d => d.ThreadId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Message_Thread");
+            });
+
+            modelBuilder.Entity<Thread>(entity =>
+            {
+                entity.Property(e => e.DateAdded).HasDefaultValueSql("getdate()");
+
                 entity.Property(e => e.From)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Text)
-                    .IsRequired()
-                    .HasMaxLength(511)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.User)
+                entity.Property(e => e.To)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.Thread)
+                    .HasForeignKey(d => d.BookId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Thread_Book");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -6,11 +6,12 @@ namespace BookSwap.API.Models
     public partial class Message
     {
         public int Id { get; set; }
-        public string User { get; set; }
-        public string Text { get; set; }
-        public string From { get; set; }
-        public int? BookId { get; set; }
+        public int Message1 { get; set; }
+        public int ThreadId { get; set; }
+        public string SentBy { get; set; }
         public DateTime DateAdded { get; set; }
         public bool IsDeleted { get; set; }
+
+        public virtual Thread Thread { get; set; }
     }
 }

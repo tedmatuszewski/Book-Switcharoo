@@ -58,12 +58,11 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
-    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Book.sql" />
     <Build Include="Tables\Message.sql" />
-    <Build Include="Views\MessageList.sql" />
+    <Build Include="Tables\Thread.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BookSwap.DB.publish.xml" />

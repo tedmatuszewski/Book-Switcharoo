@@ -41,12 +41,12 @@
                                     </div>
                                 </div>
                                 <div class="inbox_chat">
-                                    <div class="chat_list active_chat" v-for="message in MessageList">
+                                    <div class="chat_list active_chat" v-for="thread in Threads" :key="thread.Id" v-on:click="threadClick()">
                                         <div class="chat_people">
                                             <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                             <div class="chat_ib">
-                                                <h5>{{message.From}} <span class="chat_date">{{message.DateAddedDisplay}}</span></h5>
-                                                <p>{{message.Title}}</p>
+                                                <h5>{{thread.From}} <span class="chat_date">{{thread.DateAddedDisplay}}</span></h5>
+                                                <p>{{thread.BookTitle}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +127,7 @@
             return {
                 Books: [],
                 ActiveTab: "library",
-                MessageList: []
+                Threads: []
             }
         },
         methods: {
@@ -143,6 +143,9 @@
             },
             send() {
 
+            },
+            threadClick() {
+
             }
         },
         mounted() {
@@ -153,8 +156,8 @@
                 self.Books = response.data;
             });
 
-            self.$http.get("/v1/messages/list?user=" + user.email).then((response) => {
-                self.MessageList = response.data;
+            self.$http.get("/v1/threads?user=" + user.email).then((response) => {
+                self.Threads = response.data;
             });
         }
     };

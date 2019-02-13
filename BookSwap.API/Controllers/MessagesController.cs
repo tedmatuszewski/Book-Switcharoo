@@ -21,46 +21,14 @@ namespace BookSwap.API.Controllers
         }
 
         // GET: api/Messages
-        [HttpGet]
-        public IEnumerable<Message> GetMessage(string user)
-        {
-            var messages = _context.Message.Where(m => m.User.ToLower().Trim() == user.Trim().ToLower()).OrderByDescending(m => m.DateAdded).AsEnumerable();
+        //[HttpGet]
+        //public IEnumerable<Message> GetMessage(string user)
+        //{
+        //    var messages = _context.Message.Where(m => m.User.ToLower().Trim() == user.Trim().ToLower()).OrderByDescending(m => m.DateAdded).AsEnumerable();
 
-            return messages;
-        }
-
-        // GET: api/Messages
-        [HttpGet("list")]
-        public IEnumerable<MessageList> GetList(string user)
-        {
-            using (var command = _context.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandText = "SELECT * FROM [dbo].[MessageList]";
-                _context.Database.OpenConnection();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            var result = new MessageList
-                            {
-                                DateAdded = reader.GetDateTime(0),
-                                User = reader.GetString(1),
-                                Text = reader.GetString(2),
-                                From = reader.GetString(3),
-                                Title = reader.GetString(4),
-                                BookId = reader.GetInt32(5)
-                            };
-
-                            yield return result;
-                        }
-                    }
-                }
-            }
-        }
-
+        //    return messages;
+        //}
+        
         // GET: api/Messages/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMessage([FromRoute] int id)
