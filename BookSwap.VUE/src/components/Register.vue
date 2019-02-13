@@ -5,7 +5,7 @@
                 {{error}}
             </div>
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Not yet registered?</h1>
             <label>Email address</label>
             <input type="email" class="form-control" v-model="email" required="" autofocus="">
             <label>Password</label>
