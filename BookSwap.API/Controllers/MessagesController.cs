@@ -20,6 +20,14 @@ namespace BookSwap.API.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IEnumerable<Message> GetMessages(int threadId)
+        {
+            var messages = _context.Message.Where(m => m.ThreadId == threadId).AsEnumerable();
+
+            return messages;
+        }
+
         // GET: api/Messages
         //[HttpGet]
         //public IEnumerable<Message> GetMessage(string user)

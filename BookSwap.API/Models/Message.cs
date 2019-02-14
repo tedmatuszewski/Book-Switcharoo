@@ -6,7 +6,7 @@ namespace BookSwap.API.Models
     public partial class Message
     {
         public int Id { get; set; }
-        public int Message1 { get; set; }
+        public string Text { get; set; }
         public int ThreadId { get; set; }
         public string SentBy { get; set; }
         public DateTime DateAdded { get; set; }

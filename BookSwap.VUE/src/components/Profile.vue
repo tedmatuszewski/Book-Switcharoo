@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <div class="inbox_chat">
-                                    <div class="chat_list active_chat" v-for="thread in Threads" :key="thread.Id" v-on:click="threadClick()">
+                                    <div class="chat_list" v-bind:class="{ active_chat: thread == ActiveThread }" v-for="thread in Threads" :key="thread.Id" v-on:click="threadClick(thread)">
                                         <div class="chat_people">
                                             <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                             <div class="chat_ib">
@@ -54,59 +54,16 @@
                             </div>
                             <div class="mesgs">
                                 <div class="msg_history">
-                                    <div class="incoming_msg">
-                                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                        <div class="received_msg">
-                                            <div class="received_withd_msg">
-                                                <p>
-                                                    Test which is a new approach to have all
-                                                    solutions
-                                                </p>
-                                                <span class="time_date"> 11:01 AM    |    June 9</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="outgoing_msg">
-                                        <div class="sent_msg">
-                                            <p>
-                                                Test which is a new approach to have all
-                                                solutions
-                                            </p>
-                                            <span class="time_date"> 11:01 AM    |    June 9</span>
-                                        </div>
-                                    </div>
-                                    <div class="incoming_msg">
-                                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                        <div class="received_msg">
-                                            <div class="received_withd_msg">
-                                                <p>Test, which is a new approach to have</p>
-                                                <span class="time_date"> 11:01 AM    |    Yesterday</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="outgoing_msg">
-                                        <div class="sent_msg">
-                                            <p>Apollo University, Delhi, India Test</p>
-                                            <span class="time_date"> 11:01 AM    |    Today</span>
-                                        </div>
-                                    </div>
-                                    <div class="incoming_msg">
-                                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                        <div class="received_msg">
-                                            <div class="received_withd_msg">
-                                                <p>
-                                                    We work directly with our designers and suppliers,
-                                                    and sell direct to you, which means quality, exclusive
-                                                    products, at a price anyone can afford.
-                                                </p>
-                                                <span class="time_date"> 11:01 AM    |    Today</span>
-                                            </div>
+                                    <div v-bind:class="{ incoming_msg: message.SentBy == 'From', outgoing_msg: message.SentBy == 'To' }" v-for="message in Messages" v-bind:key="message.Id">
+                                        <div v-bind:class="{ received_msg: message.SentBy == 'From', sent_msg: message.SentBy == 'To' }">
+                                            <p>{{message.Text}}</p>
+                                            <span class="time_date">{{message.DateAddedDisplay}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="type_msg">
                                     <div class="input_msg_write">
-                                        <input type="text" class="write_msg" placeholder="Type a message" />
+                                        <input v-model="NewMessage" type="text" class="write_msg" placeholder="Type a message" />
                                         <button v-on:click="send" class="msg_send_btn" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
@@ -127,7 +84,10 @@
             return {
                 Books: [],
                 ActiveTab: "library",
-                Threads: []
+                Threads: [],
+                Messages: [],
+                ActiveThread: {},
+                NewMessage: ""
             }
         },
         methods: {
@@ -142,10 +102,26 @@
                 this.ActiveTab = tab;
             },
             send() {
+                var self = this;
+                var sess = session.get();
+                var sentBy = sess.email == self.ActiveThread.From ? "From" : "To";
 
+                self.$http.post("/v1/messages", {
+                    Text: self.NewMessage,
+                    ThreadId: self.ActiveThread.Id,
+                    SentBy: sentBy
+                }).then((response) => {
+                    self.Messages.push(response.data);
+                });
             },
-            threadClick() {
+            threadClick(thread) {
+                var self = this;
 
+                self.ActiveThread = thread;
+
+                self.$http.get("/v1/messages?threadId=" + thread.Id).then((response) => {
+                    self.Messages = response.data;
+                });
             }
         },
         mounted() {

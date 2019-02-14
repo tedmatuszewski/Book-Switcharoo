@@ -76,7 +76,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary"><i class="fa fa-comments"></i> Message</button>
+                                    <button type="button" class="btn btn-primary" v-on:click="message"><i class="fa fa-comments"></i> Message</button>
                                     <button type="button" class="btn btn-secondary" @click="isBookModalOpen = false"><i class="fa fa-times"></i> Close</button>
                                 </div>
                             </div>
@@ -90,6 +90,8 @@
 </template>
 
 <script>
+    import session from '../session';
+
     export default {
         name: 'Home',
         data() {
@@ -112,6 +114,14 @@
                 });
 
                 self.isBookModalOpen = true;
+            },
+            message() {
+                var self = this;
+                var user = session.get();
+
+                self.$http.put("/v1/threads", { BookId: self.bookModal.Id, From: user.email }).then(() => {
+                    self.isBookModalOpen = false;
+                });
             }
         },
         mounted() {

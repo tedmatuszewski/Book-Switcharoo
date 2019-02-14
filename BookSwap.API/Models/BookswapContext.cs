@@ -78,11 +78,14 @@ namespace BookSwap.API.Models
             {
                 entity.Property(e => e.DateAdded).HasDefaultValueSql("getdate()");
 
-                entity.Property(e => e.Message1).HasColumnName("Message");
-
                 entity.Property(e => e.SentBy)
                     .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Text)
+                    .IsRequired()
+                    .HasMaxLength(1023)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Thread)

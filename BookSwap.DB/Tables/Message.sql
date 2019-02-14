@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Message]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
-    [Message] VARCHAR(1023) NOT NULL, 
+    [Text] VARCHAR(1023) NOT NULL, 
     [ThreadId] INT NOT NULL, 
     [SentBy] VARCHAR(50) NOT NULL,
     [DateAdded] DATETIME2 NOT NULL DEFAULT GETDATE(), 
