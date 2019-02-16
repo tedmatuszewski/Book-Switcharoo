@@ -5,6 +5,7 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'library' }" v-on:click.prevent="tabChange('library')" class="nav-link" data-toggle="tab" href="#library" role="tab">Library</a> </li>
                     <li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'message' }" v-on:click.prevent="tabChange('message')" class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a> </li>
+                    <li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'editprofile' }" v-on:click.prevent="tabChange('editprofile')" class="nav-link" data-toggle="tab" href="#editprofile" role="tab">Edit Profile</a> </li>
                 </ul>
             </div>
 
@@ -72,6 +73,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade" v-bind:class="{ 'active': ActiveTab == 'editprofile', 'show': ActiveTab == 'editprofile' }" id="editprofile" role="tabpanel" aria-labelledby="nav-home-tab">
+                    displayUser();
+                </div>
             </div>
         </div>
     </div>
@@ -92,6 +96,22 @@
             }
         },
         methods: {
+
+            displayUser() {
+                var user = firebase.auth().currentUser;
+                var name, email, photoUrl, uid, emailVerified;
+
+                if (user != null) {
+                    name = user.displayName;
+                    email = user.email;
+                    photoUrl = user.photoURL;
+                    emailVerified = user.emailVerified;
+                    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                    // this value to authenticate with your backend server, if
+                    // you have one. Use User.getToken() instead.
+                }
+            },
+
             deleteBook(book, index) {
                 var self = this;
 
