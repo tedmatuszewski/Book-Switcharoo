@@ -123,8 +123,6 @@
 
                 self.$http.get("/v1/messages?threadId=" + thread.Id).then((response) => {
                     self.Messages = response.data;
-                }).catch((er) => {
-                    console.log(er);
                 });
             }
         },
