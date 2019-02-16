@@ -45,7 +45,7 @@
                                         <div class="chat_people">
                                             <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                             <div class="chat_ib">
-                                                <h5>{{thread.From}} <span class="chat_date">{{thread.DateAddedDisplay}}</span></h5>
+                                                <h5>{{thread.Title}} <span class="chat_date">{{thread.DateAddedDisplay}}</span></h5>
                                                 <p>{{thread.BookTitle}}</p>
                                             </div>
                                         </div>
@@ -53,9 +53,10 @@
                                 </div>
                             </div>
                             <div class="mesgs">
-                                <div class="msg_history">
+                                <div class="msg_history" ref="msg_history" v-chat-scroll>
                                     <div v-bind:class="{ incoming_msg: message.SentBy == 'From', outgoing_msg: message.SentBy == 'To' }" v-for="message in Messages" v-bind:key="message.Id">
                                         <div v-bind:class="{ received_msg: message.SentBy == 'From', sent_msg: message.SentBy == 'To' }">
+                                            <span class="time_date">{{message.To}} says:</span>
                                             <p>{{message.Text}}</p>
                                             <span class="time_date">{{message.DateAddedDisplay}}</span>
                                         </div>
@@ -112,6 +113,7 @@
                     SentBy: sentBy
                 }).then((response) => {
                     self.Messages.push(response.data);
+                    self.NewMessage = "";
                 });
             },
             threadClick(thread) {
@@ -121,6 +123,8 @@
 
                 self.$http.get("/v1/messages?threadId=" + thread.Id).then((response) => {
                     self.Messages = response.data;
+                }).catch((er) => {
+                    console.log(er);
                 });
             }
         },
@@ -135,6 +139,19 @@
             self.$http.get("/v1/threads?user=" + user.email).then((response) => {
                 self.Threads = response.data;
             });
+
+            setInterval(function () {
+                if (self.ActiveThread.Id == null) {
+                    return;
+                }
+                
+                self.$http.get("/v1/messages?threadId=" + self.ActiveThread.Id).then((response) => {
+                    if (self.Messages.length != response.data.length) {
+                        self.Messages = response.data;
+                    }
+                })
+                
+            }, 10000);
         }
     };
 </script>

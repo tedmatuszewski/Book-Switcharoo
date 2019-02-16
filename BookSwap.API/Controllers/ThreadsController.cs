@@ -29,7 +29,9 @@ namespace BookSwap.API.Controllers
                             .Include(t => t.Message)
                             .Where(m => m.From.ToLower().Trim() == user.Trim().ToLower() || m.To.ToLower().Trim() == user.Trim().ToLower())
                             .OrderByDescending(m => m.DateAdded)
-                            .AsEnumerable();
+                            .AsEnumerable()
+                            .Select(t => t.SetMessageTitle(user))
+                            .ToList();
 
             return threads;
         }

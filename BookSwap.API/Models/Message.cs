@@ -11,7 +11,6 @@ namespace BookSwap.API.Models
         public string SentBy { get; set; }
         public DateTime DateAdded { get; set; }
         public bool IsDeleted { get; set; }
-
         public virtual Thread Thread { get; set; }
     }
 }

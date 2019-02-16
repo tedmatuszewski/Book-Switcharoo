@@ -21,23 +21,13 @@ namespace BookSwap.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Message> GetMessages(int threadId)
+        public IEnumerable<Message> GetMessages([FromQuery] int threadId)
         {
-            var messages = _context.Message.Where(m => m.ThreadId == threadId).AsEnumerable();
+            var messages = _context.Message.Include(m => m.Thread).Where(m => m.ThreadId == threadId).AsEnumerable().Select(m => m.SetTo());
 
             return messages;
         }
-
-        // GET: api/Messages
-        //[HttpGet]
-        //public IEnumerable<Message> GetMessage(string user)
-        //{
-        //    var messages = _context.Message.Where(m => m.User.ToLower().Trim() == user.Trim().ToLower()).OrderByDescending(m => m.DateAdded).AsEnumerable();
-
-        //    return messages;
-        //}
         
-        // GET: api/Messages/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMessage([FromRoute] int id)
         {
@@ -56,35 +46,6 @@ namespace BookSwap.API.Controllers
             return Ok(message);
         }
 
-        // PUT: api/Messages/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage([FromRoute] int id, [FromBody] Message message)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != message.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(message).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Messages
         [HttpPost]
         public async Task<IActionResult> PostMessage([FromBody] Message message)
         {
@@ -97,30 +58,9 @@ namespace BookSwap.API.Controllers
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessage", new { id = message.Id }, message);
-        }
+            message = await _context.Message.Include(m => m.Thread).SingleOrDefaultAsync(m => m.Id == message.Id);
 
-        // DELETE: api/Messages/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMessage([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var message = await _context.Message.FindAsync(id);
-
-            if (message == null)
-            {
-                return NotFound();
-            }
-
-            _context.Message.Remove(message);
-
-            await _context.SaveChangesAsync();
-
-            return Ok(message);
+            return CreatedAtAction("GetMessage", new { id = message.Id }, message.SetTo());
         }
     }
 }

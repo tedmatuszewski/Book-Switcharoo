@@ -6,6 +6,7 @@ import Router from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 import firebase from 'firebase';
 import { VueMasonryPlugin } from 'vue-masonry';
+import VueChatScroll from 'vue-chat-scroll'
 import config from "./config.json";
 import session from "./session";
 
@@ -28,6 +29,7 @@ firebase.initializeApp(config.firebase);
 Vue.use(VueMasonryPlugin);
 Vue.use(VueAxios, axios);
 Vue.use(Router);
+Vue.use(VueChatScroll);
 Vue.use(BootstrapVue);
 
 let router = new Router({
