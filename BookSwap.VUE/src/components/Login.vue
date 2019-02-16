@@ -1,17 +1,29 @@
 <template>
-    <div class="container flex-grow-1">
-        <form v-on:submit.prevent="login" class="form-signin">
-            <div v-if="error" class="alert alert-danger" role="alert">
-                {{error}}
-            </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-5">
+                <div class="card mt-5">
+                    <div class="card-body text-center">
+                        <form v-on:submit.prevent="login" class="form-signin">
+                            <div v-if="error" class="alert alert-danger" role="alert">
+                                {{error}}
+                            </div>
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" v-model="email" class="form-control" placeholder="Email address" required="" autofocus="">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" v-model="password" class="form-control" placeholder="Password" required="">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+                            <h1 class="mb-3">Sign in</h1>
+                            <label for="inputEmail" class="sr-only">Email address</label>
+                            <input type="email" v-model="email" class="form-control" placeholder="Email address" required="" autofocus="">
+                            <label for="inputPassword" class="sr-only">Password</label>
+                            <input type="password" v-model="password" class="form-control" placeholder="Password" required="">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                            <hr />
+
+                            or <router-link tag="a" to="/register">sign up</router-link>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
