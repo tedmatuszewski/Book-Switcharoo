@@ -83,12 +83,12 @@ export default {
 
       user
         .updateProfile({
-          firstname: firstname,
-          lastname: lastname,
-          photoURL: filePicker
+          firstname: self.firstname,
+          lastname: self.lastname,
+          photoURL: self.filePicker
         })
-        .then(function() {
-            console.log("updated");
+        .then(function () {
+              this.$router.push({ path: "/profile" });
         })
         .catch(function(error) {
             self.error = error.message;

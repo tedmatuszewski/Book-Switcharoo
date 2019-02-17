@@ -5,7 +5,7 @@
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'library' }" v-on:click.prevent="tabChange('library')" class="nav-link" data-toggle="tab" href="#library" role="tab">Library</a> </li>
                     <li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'message' }" v-on:click.prevent="tabChange('message')" class="nav-link" data-toggle="tab" href="#messages" role="tab">Messages</a> </li>
-                    <li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'editprofile' }" v-on:click.prevent="tabChange('editprofile')" class="nav-link" data-toggle="tab" href="#editprofile" role="tab">Edit Profile</a> </li>
+                    <!--<li class="nav-item"><a v-bind:class="{ active: ActiveTab == 'editprofile' }" v-on:click.prevent="tabChange('editprofile')" class="nav-link" data-toggle="tab" href="#editprofile" role="tab">Edit Profile</a> </li>-->
                 </ul>
             </div>
 
@@ -73,9 +73,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" v-bind:class="{ 'active': ActiveTab == 'editprofile', 'show': ActiveTab == 'editprofile' }" id="editprofile" role="tabpanel" aria-labelledby="nav-home-tab">
-                    displayUser();
-                </div>
+                <!--<div class="tab-pane fade" v-bind:class="{ 'active': ActiveTab == 'editprofile', 'show': ActiveTab == 'editprofile' }" id="editprofile" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <form v-on:submit.prevent="updateProfile">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" v-model="User.firstname" class="form-control" required autofocus>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" v-model="User.lastname" class="form-control" required autofocus>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" v-model="User.email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" v-model="User.password" class="form-control" required>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary ml-auto" type="submit">Update</button>
+                    </form>
+                </div>-->
             </div>
         </div>
     </div>
@@ -83,6 +105,7 @@
 
 <script>
     import session from '../session';
+    import firebase from 'firebase';
 
     export default {
         data() {
@@ -92,26 +115,27 @@
                 Threads: [],
                 Messages: [],
                 ActiveThread: {},
-                NewMessage: ""
+                NewMessage: "",
+                User: {}
             }
         },
         methods: {
-
-            displayUser() {
+            updateProfile() {
+                var self = this;
                 var user = firebase.auth().currentUser;
-                var name, email, photoUrl, uid, emailVerified;
 
-                if (user != null) {
-                    name = user.displayName;
-                    email = user.email;
-                    photoUrl = user.photoURL;
-                    emailVerified = user.emailVerified;
-                    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                    // this value to authenticate with your backend server, if
-                    // you have one. Use User.getToken() instead.
-                }
+                user.updateProfile({
+                        firstname: self.User.firstname,
+                        lastname: self.User.lastname,
+                        photoURL: self.User.filePicker
+                    })
+                    .then(function () {
+                        
+                    })
+                    .catch(function (error) {
+                        self.error = error.message;
+                    });
             },
-
             deleteBook(book, index) {
                 var self = this;
 
@@ -149,6 +173,16 @@
         mounted() {
             var self = this;
             var user = session.get();
+
+            var fuser = firebase.auth().currentUser;
+
+            if (fuser != null) {
+                this.User.name = fuser.displayName;
+                this.User.email = fuser.email;
+                this.User.photoUrl = fuser.photoURL;
+                this.User.emailVerified = fuser.emailVerified;
+                this.User.uid = fuser.uid;
+            }
 
             self.$http.get("/v1/books?user=" + user.email).then((response) => {
                 self.Books = response.data;
