@@ -2,10 +2,10 @@
     <div class="d-flex flex-column h-100">
         <header>
             <nav class="navbar navbar-expand-md navbar-dark bg-info">
-                <a class="navbar-brand" href="#">
+                <router-link to="/"><a class="navbar-brand" href="#">
                     <img src="../public/logo_white.png" style="max-height:29px" />
                     Book Swap
-                </a>
+                </a></router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
