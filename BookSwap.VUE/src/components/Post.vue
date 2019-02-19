@@ -87,6 +87,8 @@
 </template>
 
 <script>
+    import session from '../session';
+
     export default {
         props: ['id'],
         data() {
@@ -98,8 +100,11 @@
         methods: {
             bookSubmit() {
                 var self = this;
+                var sess = session.get();
 
                 if (self.$route == null || self.$route.params == null || self.$route.params.id == null) {
+                    self.book.User = sess.email;
+
                     self.$http.post("/v1/books", self.book).then(() => {
                         self.book = {};
                         self.$refs.filePicker.value = "";
