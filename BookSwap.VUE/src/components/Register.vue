@@ -88,7 +88,7 @@ export default {
           photoURL: self.filePicker
         })
         .then(function () {
-              this.$router.push({ path: "/profile" });
+              self.$router.push({ path: "/login" });
         })
         .catch(function(error) {
             self.error = error.message;

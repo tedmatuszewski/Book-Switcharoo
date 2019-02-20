@@ -56,7 +56,7 @@
                     .then(function () {
                         session.unset();
                         //self.$router.push({ path: "/" });
-                        self.$router.go(0);
+                        self.$forceUpdate();
                     })
                     .catch(function () {
                         // An error happened
