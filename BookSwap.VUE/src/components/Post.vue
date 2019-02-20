@@ -13,18 +13,22 @@
                         </div>
                     </div>
                     <div class="col-sm-8">
+                        <div v-if="message" class="alert alert-primary" role="alert">
+                            {{message}}
+                        </div>
+
                         <form @submit.prevent="bookSubmit" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="form-label">Title</label>
-                                        <input v-model="book.Title" class="form-control">
+                                        <input v-model="book.Title" required class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="form-label">ISBN</label>
-                                        <input v-model="book.Isbn" class="form-control">
+                                        <input v-model="book.Isbn" required class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -33,13 +37,13 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label class="form-label">University</label>
-                                        <input v-model="book.University" class="form-control">
+                                        <input v-model="book.University" required class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label class="form-label">Class</label>
-                                        <input v-model="book.Class" class="form-control">
+                                        <input v-model="book.Class" required class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +58,7 @@
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label class="form-label">Condition</label>
-                                        <select v-model="book.Condition" class="form-control">
+                                        <select v-model="book.Condition" required class="form-control">
                                             <option value="Like New">Like New</option>
                                             <option value="Very Good">Very Good</option>
                                             <option value="Good">Good</option>
@@ -67,7 +71,7 @@
 
                             <div class="form-group">
                                 <label class="form-label">Description your book</label>
-                                <textarea v-model="book.Description" class="form-control"></textarea>
+                                <textarea v-model="book.Description" required class="form-control"></textarea>
                             </div>
 
                             <input type="hidden" v-model="book.Id" />
@@ -95,12 +99,17 @@
             return {
                 file: null,
                 book: {},
+                message: null
             }
         },
         methods: {
             bookSubmit() {
                 var self = this;
                 var sess = session.get();
+
+                if (self.book.Image == null || self.book.Image == "") {
+                    self.message = "You must select a book image.";
+                }
 
                 if (self.$route == null || self.$route.params == null || self.$route.params.id == null) {
                     self.book.User = sess.email;
