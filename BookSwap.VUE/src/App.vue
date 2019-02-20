@@ -55,7 +55,8 @@
                 firebase.auth().signOut()
                     .then(function () {
                         session.unset();
-                        self.$router.push({ path: "/" });
+                        //self.$router.push({ path: "/" });
+                        self.$router.go(0);
                     })
                     .catch(function () {
                         // An error happened
