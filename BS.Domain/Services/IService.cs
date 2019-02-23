@@ -7,14 +7,26 @@ namespace BS.Domain.Services
 {
     public interface IService
     {
-        BookDTO GetBook(int id);
+        ServiceResponse<BookDTO> GetBook(int id);
 
-        BookDTO GetBook(string email);
+        ServiceResponse<List<BookDTO>> GetBook(string email);
 
-        BookDTO UpdateBook(int id, BookDTO book);
+        ServiceResponse<BookDTO> UpdateBook(int id, BookDTO book);
 
-        BookDTO CreateBook(BookDTO book);
+        ServiceResponse<BookDTO> CreateBook(BookDTO book);
 
-        BookDTO DeleteBook(int id);
+        ServiceResponse<BookDTO> DeleteBook(int id);
+
+        ServiceResponse<List<BookDTO>> SearchBooks(string term);
+
+        ServiceResponse<List<MessageDTO>> GetMessages(int threadId);
+
+        ServiceResponse<MessageDTO> GetMessage(int id);
+
+        ServiceResponse<MessageDTO> CreateMessage(MessageDTO message);
+
+        ServiceResponse<List<ThreadDTO>> GetThreads(string user);
+
+        ServiceResponse<ThreadDTO> OpenNewThread(string From, int BookId);
     }
 }

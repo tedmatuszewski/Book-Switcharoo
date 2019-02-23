@@ -9,52 +9,52 @@ namespace BS.Domain.Services
 {
     public partial class Service
     {
-        public BookDTO GetBook(int id)
+        public ServiceResponse<BookDTO> GetBook(int id)
         {
             var book = _unitOfWork.bookRepository.Get(id);
 
-            return BookConvertor.Convert(book);
+            return App.SuccessResponse("Successfully returned book.",BookConvertor.Convert(book));
         }
 
-        public List<BookDTO> GetBook(string email)
+        public ServiceResponse<List<BookDTO>> GetBook(string email)
         {
             var books = _unitOfWork.bookRepository.Get(email).Select(b => BookConvertor.Convert(b)).ToList();
 
-            return books;
+            return App.SuccessResponse("Successfully returned book.", books);
         }
 
-        public BookDTO UpdateBook(int id, BookDTO book)
+        public ServiceResponse<BookDTO> UpdateBook(int id, BookDTO book)
         {
             var result = _unitOfWork.bookRepository.Update(id, BookConvertor.Convert(book));
 
             _unitOfWork.Save();
 
-            return BookConvertor.Convert(result);
+            return App.SuccessResponse("Successfully updated book.", BookConvertor.Convert(result));
         }
 
-        public BookDTO CreateBook(BookDTO book)
+        public ServiceResponse<BookDTO> CreateBook(BookDTO book)
         {
             var result = _unitOfWork.bookRepository.Create(BookConvertor.Convert(book));
 
             _unitOfWork.Save();
 
-            return BookConvertor.Convert(result);
+            return App.SuccessResponse("Successfully created book.", BookConvertor.Convert(result));
         }
 
-        public BookDTO DeleteBook(int id)
+        public ServiceResponse<BookDTO> DeleteBook(int id)
         {
             var result = _unitOfWork.bookRepository.Delete(id);
 
             _unitOfWork.Save();
 
-            return BookConvertor.Convert(result);
+            return App.SuccessResponse("Successfully deleted book.", BookConvertor.Convert(result));
         }
 
         public ServiceResponse<List<BookDTO>> SearchBooks(string term)
         {
             var books = _unitOfWork.bookRepository.Get().Select(b => BookConvertor.Convert(b)).Where(b => b.IsMatch(term)).ToList();
 
-            return App.SuccessResponse("Successfully returned books", books);
+            return App.SuccessResponse("Successfully searched books.", books);
         }
     }
 }
