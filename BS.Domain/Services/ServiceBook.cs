@@ -2,6 +2,7 @@
 using BS.DTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BS.Domain.Services
@@ -10,37 +11,50 @@ namespace BS.Domain.Services
     {
         public BookDTO GetBook(int id)
         {
-            var book = _bookRepository.Get(id);
+            var book = _unitOfWork.bookRepository.Get(id);
 
             return BookConvertor.Convert(book);
         }
 
-        public BookDTO GetBook(string email)
+        public List<BookDTO> GetBook(string email)
         {
-            var book = _bookRepository.Get(email);
+            var books = _unitOfWork.bookRepository.Get(email).Select(b => BookConvertor.Convert(b)).ToList();
 
-            return BookConvertor.Convert(book);
+            return books;
         }
 
         public BookDTO UpdateBook(int id, BookDTO book)
         {
-            var result = _bookRepository.Update(id, BookConvertor.Convert(book));
+            var result = _unitOfWork.bookRepository.Update(id, BookConvertor.Convert(book));
+
+            _unitOfWork.Save();
 
             return BookConvertor.Convert(result);
         }
 
         public BookDTO CreateBook(BookDTO book)
         {
-            var result = _bookRepository.Create(BookConvertor.Convert(book));
+            var result = _unitOfWork.bookRepository.Create(BookConvertor.Convert(book));
+
+            _unitOfWork.Save();
 
             return BookConvertor.Convert(result);
         }
 
         public BookDTO DeleteBook(int id)
         {
-            var result = _bookRepository.Delete(id);
+            var result = _unitOfWork.bookRepository.Delete(id);
+
+            _unitOfWork.Save();
 
             return BookConvertor.Convert(result);
+        }
+
+        public ServiceResponse<List<BookDTO>> SearchBooks(string term)
+        {
+            var books = _unitOfWork.bookRepository.Get().Select(b => BookConvertor.Convert(b)).Where(b => b.IsMatch(term)).ToList();
+
+            return App.SuccessResponse("Successfully returned books", books);
         }
     }
 }

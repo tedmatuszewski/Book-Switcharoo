@@ -7,16 +7,11 @@ namespace BS.Domain.Services
 {
     public partial class Service : IService
     {
-        private readonly IBookRepository _bookRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public Service()
+        public Service(IUnitOfWork work)
         {
-        }
-
-        public Service(IBookRepository bookRepository
-        )
-        {
-            _bookRepository = bookRepository;
+            _unitOfWork = work;
         }
     }
 }

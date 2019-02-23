@@ -9,12 +9,14 @@ namespace BS.Domain.Repositories
     {
         Book Get(int id);
 
-        Book Get(string email);
+        IEnumerable<Book> Get(string email);
 
         Book Update(int id, Book book);
 
         Book Create(Book book);
 
         Book Delete(int id);
+
+        IEnumerable<Book> Get();
     }
 }
