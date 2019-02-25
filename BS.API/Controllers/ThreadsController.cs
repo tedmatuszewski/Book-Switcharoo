@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace BS.API.Controllers
 {
-    [Route("v1/[controller]")]
-    [ApiController]
     public class ThreadsController : BsController
     {
         public ThreadsController(IService _service) : base(_service)

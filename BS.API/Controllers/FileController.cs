@@ -6,8 +6,6 @@ using System.IO;
 
 namespace BS.API.Controllers
 {
-    [Route("v1/[controller]")]
-    [ApiController]
     public class FileController : BsController
     {
         public FileController(IService _service) : base(_service)

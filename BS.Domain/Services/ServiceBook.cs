@@ -18,7 +18,16 @@ namespace BS.Domain.Services
 
         public ServiceResponse<List<BookDTO>> GetBook(string email)
         {
-            var books = _unitOfWork.bookRepository.Get(email).Select(b => BookConvertor.Convert(b)).ToList();
+            List<BookDTO> books;
+
+            if(email != null)
+            {
+                books = _unitOfWork.bookRepository.Get(email).Select(b => BookConvertor.Convert(b)).ToList();
+            }
+            else
+            {
+                books = _unitOfWork.bookRepository.Get().OrderByDescending(b => b.DateAdded).Take(15).Select(b => BookConvertor.Convert(b)).ToList();
+            }
 
             return App.SuccessResponse("Successfully returned book.", books);
         }

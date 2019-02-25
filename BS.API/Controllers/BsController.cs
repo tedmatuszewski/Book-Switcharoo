@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace BS.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class BsController : ControllerBase
     {
         protected IService _service;

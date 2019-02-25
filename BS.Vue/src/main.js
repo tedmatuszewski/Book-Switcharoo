@@ -9,10 +9,12 @@ import VueAxios from 'vue-axios';
 import Router from 'vue-router';
 import router from './modules/router';
 import Icon from 'vue-awesome/components/Icon';
+import config from "./config.json";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'vue-awesome/icons';
+import './assets/site.css';
 
 Vue.use(Router);
 Vue.use(VueAxios, axios);
@@ -20,6 +22,8 @@ Vue.use(Notify);
 Vue.use(VueChatScroll);
 Vue.use(VueMasonryPlugin);
 Vue.use(BootstrapVue);
+
+axios.defaults.baseURL = config.api_url;
 
 Vue.component('v-icon', Icon)
 

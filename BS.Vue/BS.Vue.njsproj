@@ -48,11 +48,19 @@
     <Content Include="src\assets\products-2.jpg" />
     <Content Include="src\assets\products-3.jpg" />
     <Content Include="src\assets\products-4.jpg" />
+    <Content Include="src\assets\site.css" />
     <Content Include="src\assets\user-thumb.jpg" />
     <Content Include="src\assets\video-icon.png" />
     <Content Include="src\components\Home.vue" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="src\components\Post.vue" />
+    <Content Include="src\components\Profile.vue" />
+    <Content Include="src\components\Register.vue" />
+    <Content Include="src\components\Search.vue" />
+    <Content Include="src\components\Login.vue">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\config.json" />
   </ItemGroup>
   <ItemGroup>

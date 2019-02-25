@@ -1,62 +1,25 @@
 <template>
     <div class="home">
         <section class="hero-area bg-1 text-center overly">
-            <!-- Container Start -->
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <!-- Header Contetnt -->
                         <div class="content-block">
-                            <h1>Buy & Sell Near You </h1>
-                            <p>Join the millions who buy and sell from each other <br> everyday in local communities around the world</p>
-                            <div class="short-popular-category-list text-center">
-                                <h2>Popular Category</h2>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a href=""><i class="fa fa-bed"></i> Hotel</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href=""><i class="fa fa-grav"></i> Fitness</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href=""><i class="fa fa-car"></i> Cars</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href=""><i class="fa fa-cutlery"></i> Restaurants</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href=""><i class="fa fa-coffee"></i> Cafe</a>
-                                    </li>
-                                </ul>
-                            </div>
-
+                            <h1>Trade Books Near You </h1>
+                            <p>Join the millions who trade books with each other <br> everyday in local universities around the world</p>
                         </div>
-                        <!-- Advance Search -->
+                        
                         <div class="advance-search">
                             <form action="#">
-                                <div class="row">
-                                    <!-- Store Search -->
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="block d-flex">
-                                            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" placeholder="Search for store">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="block d-flex">
-                                            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" placeholder="Search for store">
-                                            <!-- Search Button -->
-                                            <button class="btn btn-main">SEARCH</button>
-                                        </div>
-                                    </div>
+                                <div class="block d-flex">
+                                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" placeholder="Search for a book">
+                                    <button class="btn btn-main">SEARCH</button>
                                 </div>
                             </form>
-
                         </div>
-
                     </div>
                 </div>
             </div>
-            <!-- Container End -->
         </section>
 
         <section class="popular-deals section bg-gray">
@@ -64,25 +27,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h2>Trending Ads</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas, magnam.</p>
+                            <h2>Recent Books</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <!-- offer 01 -->
-                    <div class="col-sm-12 col-lg-4">
-                        <!-- product card -->
+                    <div class="col-sm-12 col-lg-4" v-for="book in Books">
                         <div class="product-item bg-light">
                             <div class="card">
-                                <div class="thumb-content">
-                                    <!-- <div class="price">$200</div> -->
-                                    <a href="">
-                                        <img class="card-img-top img-fluid" src="../assets/products-1.jpg" alt="Card image cap">
-                                    </a>
+                                <div class="thumb-content text-center">
+                                    <img class="card-img-top mx-auto" :src="book.Image" alt="Book">
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title"><a href="">11inch Macbook Air</a></h4>
+                                    <h4 class="card-title"><a href="">{{book.Title}}</a></h4>
                                     <ul class="list-inline product-meta">
                                         <li class="list-inline-item">
                                             <a href=""><v-icon name="beer" /> Electronics</a>
@@ -104,80 +61,7 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div class="col-sm-12 col-lg-4">
-                        <!-- product card -->
-                        <div class="product-item bg-light">
-                            <div class="card">
-                                <div class="thumb-content">
-                                    <!-- <div class="price">$200</div> -->
-                                    <a href="">
-                                        <img class="card-img-top img-fluid" src="images/products/products-2.jpg" alt="Card image cap">
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title"><a href="">Full Study Table Combo</a></h4>
-                                    <ul class="list-inline product-meta">
-                                        <li class="list-inline-item">
-                                            <a href=""><i class="fa fa-folder-open-o"></i>Furnitures</a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href=""><i class="fa fa-calendar"></i>26th December</a>
-                                        </li>
-                                    </ul>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                                    <div class="product-ratings">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12 col-lg-4">
-                        <!-- product card -->
-                        <div class="product-item bg-light">
-                            <div class="card">
-                                <div class="thumb-content">
-                                    <!-- <div class="price">$200</div> -->
-                                    <a href="">
-                                        <img class="card-img-top img-fluid" src="images/products/products-3.jpg" alt="Card image cap">
-                                    </a>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title"><a href="">11inch Macbook Air</a></h4>
-                                    <ul class="list-inline product-meta">
-                                        <li class="list-inline-item">
-                                            <a href=""><i class="fa fa-folder-open-o"></i> Electronics</a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href=""><i class="fa fa-calendar"></i>26th December</a>
-                                        </li>
-                                    </ul>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                                    <div class="product-ratings">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item selected"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
                 </div>
             </div>
         </section>
@@ -326,9 +210,17 @@
 
 <script>
     export default {
-        name: 'Home',
-        props: {
-            msg: String
+        data() {
+            return {
+                Books: []
+            };
+        },
+        mounted() {
+            var self = this;
+
+            self.$http.get("/api/books").then((response) => {
+                self.Books = response.data;
+            });
         }
     };
 </script>

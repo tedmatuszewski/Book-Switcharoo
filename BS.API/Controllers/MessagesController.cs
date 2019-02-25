@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace BS.API.Controllers
 {
-    [Route("v1/[controller]")]
-    [ApiController]
     public class MessagesController : BsController
     {
         public MessagesController(IService _service) : base(_service)

@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BS.API.Controllers
 {
-    [ApiController]
-    [Route("v1/[controller]")]
     public class BooksController : BsController
     {
         public BooksController(IService _service) : base(_service)
