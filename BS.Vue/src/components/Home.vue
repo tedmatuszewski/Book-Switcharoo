@@ -10,10 +10,10 @@
                         </div>
                         
                         <div class="advance-search">
-                            <form action="#">
+                            <form action="#" v-on:submit.prevent="search">
                                 <div class="block d-flex">
-                                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" placeholder="Search for a book">
-                                    <button class="btn btn-main">SEARCH</button>
+                                    <input type="text" v-model="term" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" placeholder="Search for a book">
+                                    <button type="submit" class="btn btn-main">SEARCH</button>
                                 </div>
                             </form>
                         </div>
@@ -39,25 +39,12 @@
                                     <img class="card-img-top mx-auto" :src="book.Image" alt="Book">
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title"><a href="">{{book.Title}}</a></h4>
+                                    <h4 class="card-title">{{book.Title}}</h4>
                                     <ul class="list-inline product-meta">
-                                        <li class="list-inline-item">
-                                            <a href=""><v-icon name="beer" /> Electronics</a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href=""><v-icon name="calendar" /> 26th December</a>
-                                        </li>
+                                        <li class="list-inline-item"><v-icon name="university" /> {{book.University}}</li>
+                                        <li class="list-inline-item"><v-icon name="bookmark" /> {{book.Class}}</li>
                                     </ul>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, aliquam!</p>
-                                    <div class="product-ratings">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item selected"><v-icon name="star" /></li>
-                                            <li class="list-inline-item selected"><v-icon name="star" /></li>
-                                            <li class="list-inline-item selected"><v-icon name="star" /></li>
-                                            <li class="list-inline-item selected"><v-icon name="star" /></li>
-                                            <li class="list-inline-item"><v-icon name="star" /></li>
-                                        </ul>
-                                    </div>
+                                    <p class="card-text">{{book.Description}}</p>
                                 </div>
                             </div>
                         </div>
@@ -212,8 +199,31 @@
     export default {
         data() {
             return {
-                Books: []
+                Books: [],
+                term: ""
             };
+        },
+        methods: {
+            search() {
+                this.$router.push({ name: 'search', params: { term: this.term } });
+            },
+            viewBook(book) {
+                var self = this;
+
+                self.$http.get("/v1/books/" + book.Id).then((response) => {
+                    self.bookModal = response.data;
+                });
+
+                self.isBookModalOpen = true;
+            },
+            message() {
+                var self = this;
+                var user = session.get();
+
+                self.$http.put("/v1/threads", { BookId: self.bookModal.Id, From: user.email }).then(() => {
+                    self.isBookModalOpen = false;
+                });
+            }
         },
         mounted() {
             var self = this;
