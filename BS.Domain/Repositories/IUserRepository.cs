@@ -15,6 +15,8 @@ namespace BS.Domain.Repositories
 
         User Get(int id);
 
+        User Get(string email, string password);
+
         IEnumerable<User> Get();
     }
 }

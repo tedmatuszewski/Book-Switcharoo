@@ -32,5 +32,7 @@ namespace BS.Domain.Services
         ServiceResponse<UserDTO> GetUser(int id);
 
         ServiceResponse<UserDTO> RegisterUser(UserDTO user);
+
+        ServiceResponse<UserDTO> SignIn(LoginDTO dto);
     }
 }

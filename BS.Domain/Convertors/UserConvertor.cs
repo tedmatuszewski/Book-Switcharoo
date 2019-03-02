@@ -10,6 +10,11 @@ namespace BS.Domain.Convertors
     {
         public static User Convert(UserDTO dto)
         {
+            if(dto == null)
+            {
+                return null;
+            }
+
             return new User()
             {
                 Id = dto.Id,
@@ -24,6 +29,11 @@ namespace BS.Domain.Convertors
 
         public static UserDTO Convert(User entity)
         {
+            if(entity == null)
+            {
+                return null;
+            }
+
             return new UserDTO()
             {
                 FirstName = entity.FirstName,

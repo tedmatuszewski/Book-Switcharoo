@@ -50,6 +50,13 @@ namespace BS.Data.Repositories
             return entities;
         }
 
+        public User Get(string email, string password)
+        {
+            var entity = this._context.User.AsNoTracking().FirstOrDefault(u => u.IsDeleted == false && u.Email.ToLower().Trim() == email.Trim() && u.Password == password);
+
+            return entity;
+        }
+
         public User Update(User entity)
         {
             var user = _context.Attach(entity);

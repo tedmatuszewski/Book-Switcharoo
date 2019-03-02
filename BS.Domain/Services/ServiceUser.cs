@@ -24,5 +24,18 @@ namespace BS.Domain.Services
 
             return App.SuccessResponse("Successfully registered user.", UserConvertor.Convert(entity));
         }
+
+        public ServiceResponse<UserDTO> SignIn(LoginDTO login)
+        {
+            var entity = this._unitOfWork.userRepository.Get(login.Email, login.Password);
+            var dto = UserConvertor.Convert(entity);
+
+            if(dto == null)
+            {
+                return App.ErrorResponse<UserDTO>("Could not find user. Please make sure that you entered your email and password correctly. If you have not registered please click sign up to create an account.");
+            }
+
+            return App.SuccessResponse("Successfully signed in", dto);
+        }
     }
 }

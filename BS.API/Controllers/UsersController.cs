@@ -17,5 +17,13 @@ namespace BS.API.Controllers
 
             return Ok(response.data);
         }
+
+        [HttpPost("Login")]
+        public IActionResult PostLogin([FromBody] LoginDTO dto)
+        {
+            var response = _service.SignIn(dto);
+
+            return Ok(response);
+        }
     }
 }
