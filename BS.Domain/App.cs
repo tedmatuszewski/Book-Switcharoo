@@ -55,6 +55,8 @@ namespace BS.Domain
 
         IBookRepository bookRepository { get; }
 
+        IUserRepository userRepository { get; }
+
         void Save();
 
         void SaveAsync();

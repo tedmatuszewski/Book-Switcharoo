@@ -28,5 +28,9 @@ namespace BS.Domain.Services
         ServiceResponse<List<ThreadDTO>> GetThreads(string user);
 
         ServiceResponse<ThreadDTO> OpenNewThread(string From, int BookId);
+
+        ServiceResponse<UserDTO> GetUser(int id);
+
+        ServiceResponse<UserDTO> RegisterUser(UserDTO user);
     }
 }

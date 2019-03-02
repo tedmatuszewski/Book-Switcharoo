@@ -63,6 +63,7 @@
     <Build Include="Tables\Book.sql" />
     <Build Include="Tables\Message.sql" />
     <Build Include="Tables\Thread.sql" />
+    <Build Include="Tables\User.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BookSwap.DB.publish.xml" />

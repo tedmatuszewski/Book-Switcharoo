@@ -12,8 +12,9 @@ namespace BS.Data
         {
             this.context = dbContext;
             this.messageRepository = new MessageRepository(context);
-            this.threadRepository = new ThreadRepository(context);
-            this.bookRepository = new BookRepository(context);
+            this.threadRepository  = new ThreadRepository(context);
+            this.bookRepository    = new BookRepository(context);
+            this.userRepository    = new UserRepository(context);
         }
         
         public IMessageRepository messageRepository { get; set; }
@@ -21,6 +22,8 @@ namespace BS.Data
         public IThreadRepository threadRepository { get; set; }
 
         public IBookRepository bookRepository { get; set; }
+
+        public IUserRepository userRepository { get; set; }
 
         public void Save()
         {
