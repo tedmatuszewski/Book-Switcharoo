@@ -1,4 +1,5 @@
-﻿using BS.Domain.Services;
+﻿using BS.Domain;
+using BS.Domain.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -16,9 +17,12 @@ namespace BS.API.Controllers
     {
         protected IService _service;
 
-        public BsController(IService service)
+        protected IDispatcher _dispatcher;
+
+        public BsController(IService service, IDispatcher dispatcher)
         {
             this._service = service;
+            this._dispatcher = dispatcher;
         }
     }
 }

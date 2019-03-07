@@ -37,6 +37,7 @@ namespace BS.API
 
             services.AddScoped<IUnitOfWork, Data.UnitOfWork>();
             services.AddScoped<IService, Service>();
+            services.AddScoped<IDispatcher, Dispatcher>();
 
             services.AddCors(options =>
             {

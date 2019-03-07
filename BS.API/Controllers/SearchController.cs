@@ -1,4 +1,5 @@
-﻿using BS.Domain.Services;
+﻿using BS.Domain;
+using BS.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ namespace BS.API.Controllers
 {
     public class SearchController : BsController
     {
-        public SearchController(IService _service) : base(_service)
+        public SearchController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
         {
         }
 

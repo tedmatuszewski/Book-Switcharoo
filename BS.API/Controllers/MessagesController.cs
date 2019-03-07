@@ -1,4 +1,5 @@
-﻿using BS.Domain.Services;
+﻿using BS.Domain;
+using BS.Domain.Services;
 using BS.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace BS.API.Controllers
 {
     public class MessagesController : BsController
     {
-        public MessagesController(IService _service) : base(_service)
+        public MessagesController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
         {
         }
 

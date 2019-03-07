@@ -1,21 +1,24 @@
-﻿using BS.Domain.Services;
+﻿using BS.Domain;
+using BS.Domain.Services;
 using BS.DTO;
 using Microsoft.AspNetCore.Mvc;
+using BS.Domain.Queries;
+using BS.Domain.Commands;
 
 namespace BS.API.Controllers
 {
     public class BooksController : BsController
     {
-        public BooksController(IService _service) : base(_service)
+        public BooksController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
         {
         }
 
         [HttpGet]
         public IActionResult GetBook(string user = null)
         {
-            var response = _service.GetBook(user);
+            var query = _dispatcher.Process(new GetBooksByEmailQuery(user));
             
-            return Ok(response.data);
+            return Ok(query.Result);
         }
         
         [HttpGet("{id}")]
@@ -37,7 +40,9 @@ namespace BS.API.Controllers
         [HttpPost]
         public IActionResult PostBook([FromBody] BookDTO book)
         {
-            var response = _service.CreateBook(book);
+            var command = _dispatcher.Process(new CreateBookCommand(book));
+
+            //command.Result
 
             return CreatedAtAction("GetBook", new { id = response.data.Id }, response.data);
         }
