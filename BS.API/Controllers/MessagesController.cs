@@ -1,42 +1,39 @@
 ﻿using BS.Domain;
-using BS.Domain.Services;
+using BS.Domain.Commands;
+using BS.Domain.Queries;
 using BS.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BS.API.Controllers
 {
     public class MessagesController : BsController
     {
-        public MessagesController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
+        public MessagesController(IDispatcher _dispatcher) : base(_dispatcher)
         {
         }
 
         [HttpGet]
         public IActionResult GetMessages([FromQuery] int threadId)
         {
-            var response = _service.GetMessages(threadId);
-
-            return Ok(response.data);
+            var query = _dispatcher.Process(new GetMessageByThreadIdQuery(threadId));
+            
+            return Ok(query);
         }
         
         [HttpGet("{id}")]
         public IActionResult GetMessage([FromRoute] int id)
         {
-            var response = _service.GetMessage(id);
+            var query = _dispatcher.Process(new GetMessageByIdQuery(id));
 
-            return Ok(response.data);
+            return Ok(query);
         }
 
         [HttpPost]
         public IActionResult PostMessage([FromBody] MessageDTO message)
         {
-            var response = _service.CreateMessage(message);
+            var query = _dispatcher.Process(new CreateMessageCommand(message));
 
-            return CreatedAtAction("GetMessage", new { id = response.data.Id }, response.data);
+            return CreatedAtAction("GetMessage", new { id = query.Result.Id }, query);
         }
     }
 }

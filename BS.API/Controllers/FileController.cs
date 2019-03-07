@@ -1,5 +1,4 @@
 ﻿using BS.Domain;
-using BS.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +8,7 @@ namespace BS.API.Controllers
 {
     public class FileController : BsController
     {
-        public FileController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
+        public FileController(IDispatcher _dispatcher) : base( _dispatcher)
         {
         }
 

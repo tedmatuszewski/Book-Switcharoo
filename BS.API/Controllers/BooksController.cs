@@ -1,15 +1,14 @@
 ﻿using BS.Domain;
-using BS.Domain.Services;
+using BS.Domain.Commands;
+using BS.Domain.Queries;
 using BS.DTO;
 using Microsoft.AspNetCore.Mvc;
-using BS.Domain.Queries;
-using BS.Domain.Commands;
 
 namespace BS.API.Controllers
 {
     public class BooksController : BsController
     {
-        public BooksController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
+        public BooksController(IDispatcher _dispatcher) : base(_dispatcher)
         {
         }
 
@@ -18,41 +17,39 @@ namespace BS.API.Controllers
         {
             var query = _dispatcher.Process(new GetBooksByEmailQuery(user));
             
-            return Ok(query.Result);
+            return Ok(query);
         }
         
         [HttpGet("{id}")]
         public IActionResult GetBook([FromRoute] int id)
         {
-            var response = _service.GetBook(id);
+            var query = _dispatcher.Process(new GetBookByIdQuery(id));
 
-            return Ok(response.data);
+            return Ok(query);
         }
 
         [HttpPut("{id}")]
         public IActionResult PutBook([FromRoute] int id, [FromBody] BookDTO book)
         {
-            var response = _service.UpdateBook(id, book);
+            var query = _dispatcher.Process(new CreateBookCommand(book));
 
-            return Ok(response.data);
+            return Ok(query);
         }
 
         [HttpPost]
         public IActionResult PostBook([FromBody] BookDTO book)
         {
             var command = _dispatcher.Process(new CreateBookCommand(book));
-
-            //command.Result
-
-            return CreatedAtAction("GetBook", new { id = response.data.Id }, response.data);
+            
+            return CreatedAtAction("GetBook", new { id = command.Result.Id }, command);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook([FromRoute] int id)
         {
-            var response = _service.DeleteBook(id);
+            var command = _dispatcher.Process(new DeleteBookCommand(id));
 
-            return Ok(response.data);
+            return Ok(command);
         }
     }
 }

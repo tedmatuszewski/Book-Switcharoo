@@ -1,5 +1,5 @@
 ﻿using BS.Domain;
-using BS.Domain.Services;
+using BS.Domain.Commands;
 using BS.DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,24 +7,24 @@ namespace BS.API.Controllers
 {
     public class UsersController : BsController
     {
-        public UsersController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
+        public UsersController(IDispatcher _dispatcher) : base(_dispatcher)
         {
         }
 
         [HttpPost("Register")]
         public IActionResult PostRegister([FromBody] UserDTO dto)
         {
-            var response = _service.RegisterUser(dto);
+            var command = _dispatcher.Process(new RegisterUserCommand(dto));
 
-            return Ok(response.data);
+            return Ok(command);
         }
 
         [HttpPost("Login")]
         public IActionResult PostLogin([FromBody] LoginDTO dto)
         {
-            var response = _service.SignIn(dto);
+            var command = _dispatcher.Process(new SignInCommand(dto));
 
-            return Ok(response);
+            return Ok(command);
         }
     }
 }

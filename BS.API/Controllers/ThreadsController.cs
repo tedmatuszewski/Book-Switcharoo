@@ -1,35 +1,29 @@
 ﻿using BS.Domain;
-using BS.Domain.Services;
-using BS.DTO;
+using BS.Domain.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BS.API.Controllers
 {
     public class ThreadsController : BsController
     {
-        public ThreadsController(IService _service, IDispatcher _dispatcher) : base(_service, _dispatcher)
+        public ThreadsController(IDispatcher _dispatcher) : base(_dispatcher)
         {
         }
 
         [HttpGet]
         public IActionResult Get(string user)
         {
-            var response = _service.GetThreads(user);
+            var query = _dispatcher.Process(new GetThreadsByEmailQuery(user));
 
-            return Ok(response.data);
+            return Ok(query);
         }
 
         [HttpPut]
         public IActionResult Put(ThreadRequest req)
         {
-            var response = _service.OpenNewThread(req.From, req.BookId);
+            var command = _dispatcher.Process(new Domain.Commands.CreateThreadCommand(req.From, req.BookId));
 
-            return Ok(response.data);
+            return Ok(command);
         }
 
         public class ThreadRequest

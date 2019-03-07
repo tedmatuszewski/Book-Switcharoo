@@ -1,13 +1,5 @@
 ﻿using BS.Domain;
-using BS.Domain.Services;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace BS.API.Controllers
 {
@@ -15,13 +7,10 @@ namespace BS.API.Controllers
     [ApiController]
     public class BsController : ControllerBase
     {
-        protected IService _service;
-
         protected IDispatcher _dispatcher;
 
-        public BsController(IService service, IDispatcher dispatcher)
+        public BsController(IDispatcher dispatcher)
         {
-            this._service = service;
             this._dispatcher = dispatcher;
         }
     }
