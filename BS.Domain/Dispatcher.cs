@@ -1,25 +1,27 @@
 ﻿
+using Microsoft.Extensions.Logging;
+
 namespace BS.Domain
 {
     public class Dispatcher : IDispatcher
     {
         private IUnitOfWork _unitOfWork;
-        //private ILogger<Dispatcher> _logger;
+        private ILogger<Dispatcher> _logger;
         //private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public Dispatcher(IUnitOfWork work)//, ILogger<Dispatcher> logger
+        public Dispatcher(IUnitOfWork work, ILogger<Dispatcher> logger)//
         {
             _unitOfWork = work;
-            //_logger = logger;
+            _logger = logger;
         }
 
-        public T Process<T>(T query) where T : Types.Process
+        public T Process<T>(T message) where T : Types.Process
         {
-            query.Execute(_unitOfWork);
+            message.Execute(_unitOfWork);
 
-            //_logger.LogInformation("");
+            _logger.LogTrace("Processed {@message} retrieved from cache", message);
 
-            return query;
+            return message;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,14 +15,23 @@ namespace BS.API
 {
     public class Program
     {
+        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+            .Build();
+
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-            .Enrich.FromLogContext()
-            .ReadFrom.Configuration()
-            .CreateLogger();
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
+
+            Serilog.Debugging.SelfLog.Enable(msg =>
+            {
+                Debug.Print(msg);
+                Debugger.Break();
+            });
 
             try
             {
@@ -41,7 +51,8 @@ namespace BS.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseSerilog()
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseConfiguration(Configuration)
+                .UseSerilog();
     }
 }
