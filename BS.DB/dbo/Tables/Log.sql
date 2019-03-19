@@ -5,7 +5,7 @@
    [Level] nvarchar(128) NULL,
    [TimeStamp] datetimeoffset(7) NOT NULL,  
    [Exception] nvarchar(max) NULL,
-   [Properties] xml NULL,
+   [Properties] NVARCHAR(MAX) NULL,
    [LogEvent] nvarchar(max) NULL
    CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) 

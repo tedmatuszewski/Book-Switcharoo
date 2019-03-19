@@ -11,6 +11,8 @@ using Serilog;
 using Serilog.Debugging;
 using Serilog.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Diagnostics;
 
 namespace BS.API
 {
@@ -32,10 +34,22 @@ namespace BS.API
                 options.UseSqlServer(connection);
             });
 
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.MSSqlServer(connection, "Log")
+                .CreateLogger();
+
+            SelfLog.Enable(msg =>
+            {
+                Debug.Print(msg);
+                Debugger.Break();
+            });
+
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();
+
             services.AddScoped<IUnitOfWork, Data.Entity.UnitOfWork>();
             services.AddScoped<IDispatcher, Dispatcher>();
-            //services.AddScoped<ILoggerFactory, Serilog.AspNetCore.SerilogLoggerFactory>();
-            //services.AddScoped<ILogger, Logger>();
+            services.AddScoped<BS.Domain.ILogger, Logger>();
 
             services.AddCors(options =>
             {

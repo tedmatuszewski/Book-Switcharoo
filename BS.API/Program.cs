@@ -23,30 +23,7 @@ namespace BS.API
 
         public static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(Configuration)
-                .CreateLogger();
-
-            Serilog.Debugging.SelfLog.Enable(msg =>
-            {
-                Debug.Print(msg);
-                Debugger.Break();
-            });
-
-            try
-            {
-                Log.Information("Starting host");
-                CreateWebHostBuilder(args).Build().Run();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "Host terminated unexpectedly");
-                throw;
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

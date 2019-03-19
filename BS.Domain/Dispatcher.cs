@@ -1,15 +1,17 @@
 ﻿
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
+
+//using Serilog;
+//using Serilog.Events;
 
 namespace BS.Domain
 {
     public class Dispatcher : IDispatcher
     {
         private IUnitOfWork _unitOfWork;
-        private ILogger<Dispatcher> _logger;
-        //private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private ILogger _logger;
 
-        public Dispatcher(IUnitOfWork work, ILogger<Dispatcher> logger)//
+        public Dispatcher(IUnitOfWork work, ILogger logger)
         {
             _unitOfWork = work;
             _logger = logger;
@@ -19,7 +21,9 @@ namespace BS.Domain
         {
             message.Execute(_unitOfWork);
 
-            _logger.LogTrace("Processed {@message} retrieved from cache", message);
+            var log = $"Executed {@message} of type  {message.GetType().Name}";
+
+            _logger.Debug(log, message);
 
             return message;
         }
