@@ -13,6 +13,8 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "BS.Vue", "BS.Vue\BS.Vue.njs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BS.Data.Entity", "BS.Data.Entity\BS.Data.Entity.csproj", "{AED5EE5D-3B45-4290-A910-AAFEA8C4DE84}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BS.DB", "BS.DB\BS.DB.sqlproj", "{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,12 @@ Global
 		{AED5EE5D-3B45-4290-A910-AAFEA8C4DE84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AED5EE5D-3B45-4290-A910-AAFEA8C4DE84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AED5EE5D-3B45-4290-A910-AAFEA8C4DE84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C71D7DE-3A6E-44FE-83EC-FD46ACCA52B2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
