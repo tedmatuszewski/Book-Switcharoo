@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using NLog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace BS.API
@@ -22,7 +23,7 @@ namespace BS.API
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("connection");
-
+            
             services.AddDbContext<Data.Entity.BookSwapContext>(options =>
             {
                 options.UseSqlServer(connection);
@@ -30,6 +31,7 @@ namespace BS.API
 
             services.AddScoped<IUnitOfWork, Data.Entity.UnitOfWork>();
             services.AddScoped<IDispatcher, Dispatcher>();
+            //services.AddScoped<ILogger, Logger>();
 
             services.AddCors(options =>
             {
