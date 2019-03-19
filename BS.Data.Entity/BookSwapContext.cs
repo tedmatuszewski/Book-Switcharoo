@@ -3,7 +3,7 @@ using BS.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace BS.Data
+namespace BS.Data.Entity
 {
     public partial class BookSwapContext : DbContext
     {

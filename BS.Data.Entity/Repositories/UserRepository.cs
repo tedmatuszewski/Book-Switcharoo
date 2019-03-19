@@ -6,7 +6,7 @@ using BS.Domain.Entities;
 using BS.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace BS.Data.Repositories
+namespace BS.Data.Entity.Repositories
 {
     public class UserRepository : IUserRepository
     {

@@ -11,5 +11,7 @@ namespace BS.Domain.Types
         public abstract string Title { get; }
 
         public string Message { get; protected set; }
+
+        public Guid OperationId = Guid.NewGuid();
     }
 }

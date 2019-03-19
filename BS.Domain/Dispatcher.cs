@@ -17,6 +17,8 @@ namespace BS.Domain
         {
             query.Execute(_unitOfWork);
 
+            
+
             return query;
         }
     }

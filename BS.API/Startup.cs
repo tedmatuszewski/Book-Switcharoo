@@ -23,12 +23,12 @@ namespace BS.API
         {
             var connection = Configuration.GetConnectionString("connection");
 
-            services.AddDbContext<Data.BookSwapContext>(options =>
+            services.AddDbContext<Data.Entity.BookSwapContext>(options =>
             {
                 options.UseSqlServer(connection);
             });
 
-            services.AddScoped<IUnitOfWork, Data.UnitOfWork>();
+            services.AddScoped<IUnitOfWork, Data.Entity.UnitOfWork>();
             services.AddScoped<IDispatcher, Dispatcher>();
 
             services.AddCors(options =>

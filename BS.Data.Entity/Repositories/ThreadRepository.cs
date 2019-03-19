@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BS.Data.Repositories
+namespace BS.Data.Entity.Repositories
 {
     public class ThreadRepository : IThreadRepository
     {

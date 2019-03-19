@@ -1,8 +1,8 @@
-﻿using BS.Data.Repositories;
+﻿using BS.Data.Entity.Repositories;
 using BS.Domain;
 using BS.Domain.Repositories;
 
-namespace BS.Data
+namespace BS.Data.Entity
 {
     public class UnitOfWork : IUnitOfWork
     {
